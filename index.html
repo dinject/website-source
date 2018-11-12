@@ -206,12 +206,24 @@
         </p>
       </div>
       <div class="col-md-6 feature mtl">
+        <p>
+          We name modules with common functionality that we want to inject in other modules.
+        </p>
         ```java
-      @ContextModule(name="coffee", dependsOn="common-configuration")
-      ```
+        @ContextModule(name="feature-toggle")
+        ```
+
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>
+          Modules can specify that they depend on other modules. In the example below the "job system"
+          is expecting to inject beans from a common "feature toggle" module.
+        </p>
+        ```java
+        @ContextModule(name="job-system", dependsOn={"feature-toggle"})
+        ```
       </div>
     </div>
-
 
   </div>
 </div>
