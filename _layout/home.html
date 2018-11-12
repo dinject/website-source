@@ -1,0 +1,42 @@
+<#include "/_layout/macros.ftl">
+<!DOCTYPE html>
+<html lang="en">
+<#include "/_layout/_main_head.ftl">
+  <body>
+  <div id="wrap">
+    <div id="header">
+    <div class="navbar" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">
+            <!--<img src="/images/lg5-21x100.png" height="35">-->
+          </a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav pull-right nav-btn-rhs">
+            <li <#if home??>class="active"</#if>><a href="/"><span class="fas fa-home"></span>  Home</a></li>
+            <li <#if documentation??>class="active"</#if>><a href="/docs">Docs</a></li>
+            <li ><a target="_blank" href="/apidoc/1">ApiDocs</a></li>
+            <li <#if releases??>class="active"</#if>><a href="/releases">Releases</a></li>
+            <li ><a target="_blank" href="https://github.com/kanuka/kanuka"> <i class="fab fa-github"></i></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+  </div>
+  <div id="main">
+<div id="layout-body"></div>
+  </div>
+</div>
+
+<#include "/_layout/_main_footer.ftl">
+
+  </body>
+</html>

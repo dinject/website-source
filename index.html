@@ -1,0 +1,220 @@
+<html>
+<head>
+  <meta name="layout" content="_layout/home.html"/>
+  <#assign home = "active">
+</head>
+
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="jumbotron">
+        <div class="container">
+          <h1>Kanuka dependency injection</h1>
+          <h2 style="margin-left: 30px;">Fast and light source code generated DI for Java</h2>
+          <h3>Current version - <span class="kanuka-version">0.3</span></h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 main-pg-idx">
+      <ul>
+        <li><h4><a class="bright-link" href="/docs/getting-started"><i class="fas fa-chevron-circle-right"></i> Getting started</a></h4></li>
+        <li><h4><a href="/docs"><i class="fas fa-chevron-circle-right"></i> Documentation</a></h4></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!--<div class="container mtl">-->
+  <!--<div class="row">-->
+    <!--<div class="col-md-9">-->
+      <!--<div id="nav-search"><#include "/_layout/_searchinput.ftl"></div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+<div class="erkbg mtl">
+  <div class="container">
+
+    <h2 class="erk ">About Kanuka</h2>
+
+    <div class="row">
+      <div class="col-md-3 feature">
+        <h3>Uses APT</h3>
+        <p>
+          Kanuka uses annotation processing to generate Java source code to perform dependency injection.
+        </p>
+        <p>
+          It is similar in approach to <a target="_blank" href="https://google.github.io/dagger/">Google Dagger</a>
+          but is orientated for server-side use cases with support
+          for bean Lifecycle via <code>@PostConstruct</code> and <code>@PreDestroy</code>, support for
+          <code>@Factory</code> and <code>@Bean</code>.
+        </p>
+      </div>
+      <div class="col-md-6 feature mtl">
+        ```java
+        @Singleton
+        public class CoffeeMaker {
+
+          private final Pump pump;
+
+          @Inject
+          CoffeeMaker(Pump pump) {
+            this.pump = pump;
+          }
+
+          @PostConstruct
+          void onStart() {
+            // perform action on startup, open resources etc
+          }
+
+          @PreDestory
+          void onStart() {
+            // close resources on shutdown
+          }
+          ...
+
+          ```
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 feature">
+        <h3>@Factory and @Bean</h3>
+        <p>
+          Sometimes we need to have some logic when creating beans. We can use <code>@Factory</code> on a class
+          that has methods annotated with <code>@Bean</code> to perform logic when creating beans.
+        </p>
+        <p>
+          These factory methods can have dependencies.
+        </p>
+        <p>
+          In Spring DI this equates to using <code>@Configuration</code> and <code>@Bean</code>.
+          In Micronaut DI this equates to using <code>@Factory</code> and <code>@Bean</code>.
+        </p>
+      </div>
+      <div class="col-md-6 feature mtl">
+        ```java
+        @Factory
+        public class MyFactory {
+
+          private final Configuration configuraton;
+
+          @Inject
+          MyFactory(Configuration configuraton) {
+            this.configuraton = configuraton;
+          }
+
+          @Bean
+          Foo createFoo() {
+            // potentially perform some logic
+            return new Foo(...);
+          }
+
+          @Bean
+          Bar createBar(Foo foo) {
+            // potentially perform some logic
+            return new Bar(...);
+          }
+        }
+          ```
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="">
+
+  <div class="container">
+
+    <h2 class="erk">Getting started</h2>
+
+    <div class="row">
+      <div class="col-md-3 feature">
+        <h3>Maven</h3>
+        <p>
+          Add the 2 dependencies.
+        </p>
+      </div>
+      <div class="col-md-6 feature">
+        ```xml
+        <dependency>
+          <groupId>io.kanuka</groupId>
+          <artifactId>kanuka</artifactId>
+          <version>0.3</version>
+        </dependency>
+
+        <dependency>
+          <groupId>io.kanuka</groupId>
+          <artifactId>kanuka-generator</artifactId>
+          <version>0.3</version>
+          <scope>provided</scope>
+        </dependency>
+        ```
+     </div>
+   </div>
+    <div class="row">
+     <div class="col-md-3 feature">
+       <h3>Use BeanContext</h3>
+       <p>
+         Use SystemContext or BootContext to obtain the bean context
+         and use the beans.
+       </p>
+     </div>
+     <div class="col-md-6 feature">
+
+       ```java
+
+        // obtain a bean from the context and use it
+        CoffeeMaker coffeeMaker = SystemContext.getBean(CoffeeMaker.class);
+        coffeeMaker.brew();
+
+        ```
+
+        ```java
+
+        // create the context programmatically
+        // ... with some options
+        try (BeanContext context = new BootContext()
+          .withNoShutdownHook()
+          .withBean(someTestDouble)
+          .load()) {
+
+          CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
+          coffeeMaker.brew();
+        }
+
+        // Using try with resources block above such that
+        // the context is closed
+
+        ```
+      </div>
+    </div>
+
+</div>
+
+<div class="erkbg">
+  <div class="container">
+    <h2 class="erk">More stuff?</h2>
+
+    <div class="row">
+      <div class="col-md-3">
+        <h3><a href="/docs/"></a></h3>
+        <p>
+
+        </p>
+      </div>
+
+      <div class="col-md-6 mtl">
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
