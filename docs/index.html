@@ -90,11 +90,44 @@ public class CoffeeMaker {
 <p>
   We can use <code>java.util.Optional</T></code> to inject dependencies that might not exist (might not be provided).
 </p>
+```java
+@Singleton
+class Pump {
+
+  private final Heater heater;
+
+  private final Optional<Widget> widget;
+
+  @Inject
+  Pump(Heater heater, Optional<Widget> widget) {
+    this.heater = heater;
+    this.widget = widget;
+  }
+
+  public void pump() {
+    if (widget.isPresent()) {
+      widget.get().doStuff();
+    }
+    ...
+  }
+}
+```
 
 <h2 id="list">List</h2>
 <p>
   We can inject a <code>java.util.List</T></code> of beans that implement an interface.
 </p>
+```java
+@Singleton
+public class CombinedBars {
+
+  private final List<Bar> bars;
+
+  @Inject
+  public CombinedSomei(List<Bar> bars) {
+    this.bars = bars;
+  }
+```
 
 <h2 id="provider">Provider</h2>
 <p>
@@ -104,8 +137,24 @@ public class CoffeeMaker {
   This is more limited than using <code>@Factory</code> and <code>@Bean</code>. The expectation is that
   people would generally use Factory and Bean instead of implementing the Provider interface.
 </p>
+```java
+@Singleton
+public class FooProvider implements Provider<Foo> {
 
+  private final Bazz bazz;
 
+  FooProvider(Bazz bazz) {
+    this.bazz = bazz;
+  }
+
+  @Override
+  public Foo get() {
+    // maybe do interesting logic, read environment variables ...
+    return new BasicFoo(bazz);
+  }
+}
+
+```
 
 </body>
 </html>
