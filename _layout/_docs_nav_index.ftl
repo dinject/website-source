@@ -5,6 +5,11 @@
   <li><a href="/docs/#inject">@Inject</a></li>
   <li><a href="/docs/#constructor">Constructor injection</a></li>
   <li><a href="/docs/#field">Field injection</a></li>
+  <li><a href="/docs/#mixed">Mixed constructor and field</a></li>
+  <li><a href="/docs/#optional">Optional</a></li>
+  <li><a href="/docs/#list">List</a></li>
+  <li><a href="/docs/#provider">Provider</a></li>
+
 </ul>
 </@smallnav>
 <@smallnav activeCheck="${lifecycle!''}" url="/docs/lifecycle" title="Lifecycle">
