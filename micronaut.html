@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Kanuka comparison to Micronaut DI</title>
+  <meta name="layout" content="_layout/home.html"/>
+<#assign spring="active">
+</head>
+<body>
+
+<div class="jumbotron mini">
+  <div class="container">
+    <h1>Micronaut DI comparison</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+
+      <h2>Code Generation</h2>
+      <ul>
+        <li>Kanuka generates source code where Micronaut generates bytecode</li>
+        <li>Kanuka determine the ordering of dependency injection at compile time and not runtime</li>
+      </ul>
+
+      <h2>Both</h2>
+      <ul>
+        <li>Do not use classpath scanning</li>
+        <li>Support modularity (injecting dependencies across modules)</li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

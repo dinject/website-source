@@ -1,0 +1,40 @@
+<html>
+<head>
+  <title>Testing, injecting test doubles | Kanuka dependency injection</title>
+  <meta name="layout" content="_layout/docs.html"/>
+  <template id="menuNav"><#include "/_layout/_docs_nav_index.ftl"></template>
+  <meta name="bread1" content="Test doubles" href="/docs/test-doubles"/>
+  <#assign testing="active">
+</head>
+<body>
+
+<h2>Test doubles</h2>
+<p>
+  During testing we often want to wire the bean context but supply some test doubles for certain dependencies.
+  We can use <code>BootContext.withBean()</code> to achieve this.
+</p>
+  ```java
+  @Test
+  public void myComponentTest() {
+
+    // we have some test doubles we want to use
+    MyRedisApi mockRedisApi = mock(MyRedisApi.class);
+    MyDatabaseApi mockDb = mock(MyDatabaseApi.class);
+
+    // create the context programmatically with some
+    // test doubles rather than the real dependencies
+    try (BeanContext context = new BootContext()
+      .withBean(mockRedisApi)
+      .withBean(mockDb)
+      .load()) {
+
+      // perform a component test (using the test doubles)
+      CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
+      coffeeMaker.brew();
+    }
+  }
+  ```
+
+
+</body>
+</html>

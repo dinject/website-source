@@ -1,0 +1,90 @@
+<html>
+<head>
+  <meta name="layout" content="_layout/docs.html"/>
+  <template id="menuNav"><#include "/_layout/_docs_nav_index.ftl"></template>
+  <meta name="bread1" content="Injection" href="/docs/"/>
+  <#assign injection="active">
+</head>
+<body>
+
+<h2>@Singleton</h2>
+<p>
+  Put <code>@Singleton</code> on beans that we want dependency injection on.
+  These are beans that are created ("wired") by dependency injection and put into the context.
+  They are then available to be injected into other beans.
+</p>
+
+<h2>@Inject</h2>
+<p>
+  Put <code>@Inject</code> on the constructor that should be used for constructor dependency injection.
+  Note that if there is <code>only one constructor</code> we don't need to put the <code>@Inject</code> on it.
+</p>
+<p>
+  If we want to use field injection put the <code>@Inject</code> on the field. Note that the field must not
+  be <code>private</code> and must not be <code>final</code> for field injection.
+</p>
+
+<h2>Constructor injection</h2>
+```java
+@Singleton
+public class CoffeeMaker {
+
+  private final Pump pump;
+
+  private final Grinder grinder;
+
+  @Inject
+  public CoffeeMaker(Pump pump, Grinder grinder) {
+    this.pump = pump;
+    this.grinder = grinder;
+  }
+  ...
+```
+<p>
+  The above CoffeeMaker is using constructor injection. Both a Pump and Ginder will be injected into the
+  constructor when the DI creates (or "wires") the CoffeeMaker.
+</p>
+<p>
+  Note that if there is only 1 constructor it is used for dependency injection and we don't need
+  to specify <code>@Inject</code>.
+</p>
+
+<h2>Field injection</h2>
+```java
+@Singleton
+public class CoffeeMaker {
+
+  @Inject
+  Pump pump;
+
+  @Inject
+  Grinder grinder;
+  ...
+```
+<p>
+  With field injection the <code>@Inject</code> is placed on the field and the field must not be <code>private</code>
+  and it must not be <code>final</code>.
+</p>
+
+<h2>Mixed constructor and field injection</h2>
+```java
+@Singleton
+public class CoffeeMaker {
+
+  @Inject
+  Pump pump;
+
+  private final Grinder grinder;
+
+  public CoffeeMaker(Grinder grinder) {
+    this.grinder = grinder;
+  }
+```
+<p>
+  We are allowed to mix constructor and field injection. In the above the Grinder is injected into the constructor
+  and the Pump is injected by field injection.
+</p>
+
+
+</body>
+</html>

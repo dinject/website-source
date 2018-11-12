@@ -1,0 +1,40 @@
+<html>
+<head>
+  <title>Kanuka comparison to Dagger</title>
+  <meta name="layout" content="_layout/home.html"/>
+<#assign spring="active">
+</head>
+<body>
+
+<div class="jumbotron mini">
+  <div class="container">
+    <h1>Dagger comparison</h1>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+
+      <h2>Kanuka is orientated for server use</h2>
+      <ul>
+        <li>Kanuka supports <code>@PostConstruct</code> and <code>@PreDestroy</code> lifecycle</li>
+        <li>Kanuka has <code>@Factory</code> and <code>@Bean</code></li>
+        <li>Kanuka has support for supplying test doubles (similar to Spring test scope)</li>
+      </ul>
+
+      <h2>Both Dagger and Kanuka</h2>
+      <ul>
+        <li>Use Java annotation processing to generate Java source code to perform dependency injection</li>
+        <li>Do not use classpath scanning or reflection</li>
+        <li>Determine the ordering of dependency injection at compile time and not runtime</li>
+        <li>Support modularity (injecting dependencies across modules)</li>
+        <li>Only support Singleton scope</li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

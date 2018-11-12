@@ -1,0 +1,58 @@
+<html>
+<head>
+  <title>@Factory | Kanuka dependency injection</title>
+  <meta name="layout" content="_layout/docs.html"/>
+  <template id="menuNav"><#include "/_layout/_docs_nav_index.ftl"></template>
+  <meta name="bread1" content="Factory" href="/docs/factory"/>
+  <#assign factory="active">
+</head>
+<body>
+
+<h2>@Factory</h2>
+<p>
+  Factory beans allow logic to be used when creating a bean. Often this logic is based
+  on environment variables or system properties (e.g. AWS region).
+</p>
+<p>
+  This is equivalent to Spring DI <code>@Configuration</code>.
+</p>
+
+```java
+@Factory
+class Configuration {
+
+  private final StartConfig startConfig;
+
+  /**
+   * Factory beans can have dependencies.
+   */
+  @Inject
+  Configuration(StartConfig startConfig) {
+    this.startConfig = startConfig;
+  }
+
+  /**
+   * Builder method.
+   */
+  @Bean
+  FooBean buildFoo() {
+
+    // maybe read System properties or environment variables
+    return new FooBean(...);
+  }
+
+  /**
+   * Builder method with dependencies as method parameters.
+   */
+  @Bean
+  BarBean buildBar(FooBean foo, CoffeeMaker maker) {
+
+    // maybe read System properties or environment variables
+    return new BarBean(...);
+  }
+}
+
+```
+
+</body>
+</html>

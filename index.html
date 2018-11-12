@@ -11,8 +11,8 @@
       <div class="jumbotron">
         <div class="container">
           <h1>Kanuka dependency injection</h1>
-          <h2 style="margin-left: 30px;">Fast and light source code generated DI for Java</h2>
           <h3>Current version - <span class="kanuka-version">0.3</span></h3>
+          <h2 style="margin-left: 30px;">Very fast dependency injection using compiled code avoiding reflection and classpath scanning</h2>
         </div>
       </div>
     </div>
@@ -20,6 +20,9 @@
       <ul>
         <li><h4><a class="bright-link" href="/docs/getting-started"><i class="fas fa-chevron-circle-right"></i> Getting started</a></h4></li>
         <li><h4><a href="/docs"><i class="fas fa-chevron-circle-right"></i> Documentation</a></h4></li>
+        <li><h4><a href="/spring"><i class="fas fa-chevron-circle-right"></i> Spring comparison</a></h4></li>
+        <li><h4><a href="/dagger"><i class="fas fa-chevron-circle-right"></i> Dagger comparison</a></h4></li>
+        <li><h4><a href="/micronaut"><i class="fas fa-chevron-circle-right"></i> Micronaut comparison</a></h4></li>
       </ul>
     </div>
   </div>
@@ -39,18 +42,21 @@
     <h2 class="erk ">About Kanuka</h2>
 
     <div class="row">
-      <div class="col-md-3 feature">
+      <div class="col-md-4 feature">
         <h3>Uses APT</h3>
         <p>
-          Kanuka uses annotation processing to generate Java source code to perform dependency injection.
+          Kanuka performs DI very fast using compiled code avoiding reflection and classpath scanning.
         </p>
         <p>
-          It is similar in approach to <a target="_blank" href="https://google.github.io/dagger/">Google Dagger</a>
-          but is orientated for server-side use cases with support
-          for bean Lifecycle via <code>@PostConstruct</code> and <code>@PreDestroy</code>, support for
-          <code>@Factory</code> and <code>@Bean</code>.
+          Kanuka uses annotation processing to generate Java source code to perform dependency injection much like
+          <a target="_blank" href="https://google.github.io/dagger/">Google Dagger</a>.
+        </p>
+        <p>
+          Annotate components with <code>@Singleton</code> and use <code>@Inject</code> to specify constructor
+          injection or field injection.
         </p>
       </div>
+
       <div class="col-md-6 feature mtl">
         ```java
         @Singleton
@@ -63,6 +69,28 @@
             this.pump = pump;
           }
 
+          ...
+
+          ```
+      </div>
+    </div>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+    <div class="row">
+      <div class="col-md-4 feature">
+        <h3>@PostConstruct & @PreDestroy</h3>
+        <p>
+          Kanuka supports bean Lifecycle via <code>@PostConstruct</code> and <code>@PreDestroy</code>. These methods
+          are most often used to open resources on startup (e.g. connections to remote services and databases) and
+          close those resources on shutdown.
+        </p>
+      </div>
+      <div class="col-md-6 feature mtl">
+        ```java
+          ...
+
           @PostConstruct
           void onStart() {
             // perform action on startup, open resources etc
@@ -72,25 +100,23 @@
           void onStart() {
             // close resources on shutdown
           }
-          ...
 
           ```
       </div>
     </div>
 
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
     <div class="row">
-      <div class="col-md-3 feature">
+      <div class="col-md-4 feature">
         <h3>@Factory and @Bean</h3>
         <p>
           Sometimes we need to have some logic when creating beans. We can use <code>@Factory</code> on a class
           that has methods annotated with <code>@Bean</code> to perform logic when creating beans.
         </p>
         <p>
-          These factory methods can have dependencies.
-        </p>
-        <p>
           In Spring DI this equates to using <code>@Configuration</code> and <code>@Bean</code>.
-          In Micronaut DI this equates to using <code>@Factory</code> and <code>@Bean</code>.
         </p>
       </div>
       <div class="col-md-6 feature mtl">
@@ -118,6 +144,72 @@
           }
         }
           ```
+      </div>
+    </div>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+
+    <div class="row">
+      <div class="col-md-4 feature">
+        <h3>Testing</h3>
+        <p>
+          During testing we sometime want to wire the graph but supply some test doubles or mocks for
+          some of the dependencies (like Spring test scope).
+        </p>
+        <p>
+
+        </p>
+      </div>
+      <div class="col-md-6 feature mtl">
+      ```java
+      @Test
+      public void myComponentTest() {
+
+        // we have some test doubles we want to use
+        MyRedisApi mockRedisApi = mock(MyRedisApi.class);
+        MyDatabaseApi mockDb = mock(MyDatabaseApi.class);
+
+        // create the context programmatically with some
+        // test doubles rather than the real dependencies
+        try (BeanContext context = new BootContext()
+          .withBean(mockRedisApi)
+          .withBean(mockDb)
+          .load()) {
+
+          // perform a component test (using the test doubles)
+          CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
+          coffeeMaker.brew();
+        }
+      }
+      ```
+      </div>
+    </div>
+
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+    <div class="row">
+      <div class="col-md-4 feature">
+        <h3>Modules</h3>
+        <p>
+          We can also want perform dependency injection with beans in other modules (jars).
+        </p>
+        <p>
+          We do this by using <code>@ContextModule</code> to define the module dependencies.
+          The <code>dependsOn</code> defines other modules that should be wired before this
+          module and that provide beans that can injected in our module.
+        </p>
+        <p>
+
+        </p>
+      </div>
+      <div class="col-md-6 feature mtl">
+        ```java
+      @ContextModule(name="coffee", dependsOn="common-configuration")
+      ```
       </div>
     </div>
 

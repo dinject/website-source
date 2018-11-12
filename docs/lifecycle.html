@@ -1,0 +1,56 @@
+<html>
+<head>
+  <title>Lifecycle | Kanuka dependency injection</title>
+  <meta name="layout" content="_layout/docs.html"/>
+  <template id="menuNav"><#include "/_layout/_docs_nav_index.ftl"></template>
+  <meta name="bread1" content="Lifecycle" href="/docs/lifecycle"/>
+  <#assign lifecycle="active">
+</head>
+<body>
+
+<h2>@PostConstruct</h2>
+<p>
+  Put <code>@PostConstruct</code> on a method that we want to run on startup just after all the
+  beans have been wired.
+</p>
+<p>
+  Typically we open a resource like network connections to a remote resource (cache, queue, database etc).
+</p>
+```java
+@Singleton
+public class CoffeeMaker {
+
+  ...
+
+  @PostConstruct
+  public onStartup() {
+    // connect to remote resource ...
+    ...
+  }
+  ...
+```
+
+<h2>@PreDestory</h2>
+<p>
+  Put <code>@PreDestory</code> on a method that we want to run on shutdown.
+</p>
+<p>
+  Typically we want this method to close resources.
+</p>
+```java
+@Singleton
+public class CoffeeMaker {
+
+  ...
+
+  @PreDestroy
+  public onShutdown() {
+    // close resources
+    ...
+  }
+  ...
+```
+
+
+</body>
+</html>
