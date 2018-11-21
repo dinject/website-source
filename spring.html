@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Kanuka comparison to Spring dependency injection</title>
+  <title>DInject comparison to Spring dependency injection</title>
   <meta name="layout" content="_layout/home.html"/>
 <#assign spring="active">
 </head>
@@ -18,20 +18,20 @@
 
       <h2>Limitations relative to Spring DI </h2>
       <ul>
-        <li>Kanuka only has Singleton scope</li>
-        <li>Kanuka does not have an equivalent to <code>@Value</code></li>
-        <li>Kanuka does not have integrated AOP</li>
+        <li>DInject only has Singleton scope</li>
+        <li>DInject does not have an equivalent to <code>@Value</code></li>
+        <li>DInject does not have integrated AOP</li>
       </ul>
 
       <h2>Relative benefits</h2>
       <ul>
-        <li>Kanuka uses Java annotation processing to generate Java source code to perform dependency injection (like Dagger)</li>
-        <li>Kanuka does not use classpath scanning (Spring users might use spring-component-indexer to avoid this)</li>
-        <li>Kanuka determines the ordering of dependency injection at compile time and not runtime</li>
-        <li>Kanuka does not use reflection</li>
+        <li>DInject uses Java annotation processing to generate Java source code to perform dependency injection (like Dagger)</li>
+        <li>DInject does not use classpath scanning (Spring users might use spring-component-indexer to avoid this)</li>
+        <li>DInject determines the ordering of dependency injection at compile time and not runtime</li>
+        <li>DInject does not use reflection</li>
       </ul>
       <p>
-        Kanuka performs DI very fast using compiled code avoiding reflection and classpath scanning.
+        DInject performs DI using compiled code avoiding reflection and classpath scanning so it's fast with low overhead.
       </p>
 
     </div>

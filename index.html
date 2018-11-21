@@ -10,9 +10,11 @@
     <div class="col-md-9">
       <div class="jumbotron">
         <div class="container">
-          <h1>Kanuka dependency injection</h1>
-          <h3>Current version - <span class="kanuka-version">0.3</span></h3>
-          <h2 style="margin-left: 30px;">Very fast dependency injection using compiled code avoiding reflection and classpath scanning</h2>
+          <h1>DInject dependency injection</h1>
+          <h3>Current version - <span class="dinject-version">0.8</span></h3>
+          <h2 style="margin-left: 30px;">Dagger2 style DI for server side JVM developers</h2>
+          <h2 style="margin-left: 30px;">No reflection, no classpath scanning, no dynamic proxies</h2>
+          <h2 style="margin-left: 30px;">APT based - generates source code for DI</h2>
         </div>
       </div>
     </div>
@@ -38,17 +40,17 @@
 <div class="erkbg mtl">
   <div class="container">
 
-    <h2 class="erk ">About Kanuka</h2>
+    <h2 class="erk ">About DInject</h2>
 
     <div class="row">
       <div class="col-md-4 feature">
         <h3>Uses APT</h3>
         <p>
-          Kanuka performs DI very fast using compiled code avoiding reflection and classpath scanning.
+          DInject uses annotation processing to generate Java source code to perform dependency injection much like
+          <a target="_blank" href="https://google.github.io/dagger/">Google Dagger</a>
         </p>
         <p>
-          Kanuka uses annotation processing to generate Java source code to perform dependency injection much like
-          <a target="_blank" href="https://google.github.io/dagger/">Google Dagger</a>.
+          This makes it fast with low overhead, perfect for Kubernates, Docker, Microservices style development.
         </p>
         <p>
           Annotate components with <code>@Singleton</code> and use <code>@Inject</code> to specify constructor
@@ -81,7 +83,7 @@
       <div class="col-md-4 feature">
         <h3>@PostConstruct & @PreDestroy</h3>
         <p>
-          Kanuka supports bean Lifecycle via <code>@PostConstruct</code> and <code>@PreDestroy</code>. These methods
+          Bean lifecycle support via <code>@PostConstruct</code> and <code>@PreDestroy</code>. These methods
           are most often used to open resources on startup (e.g. connections to remote services and databases) and
           close those resources on shutdown.
         </p>
@@ -155,7 +157,7 @@
         <h3>Testing</h3>
         <p>
           During testing we sometime want to wire the graph but supply some test doubles or mocks for
-          some of the dependencies (like Spring test scope).
+          some of the dependencies (similar to Spring test scope).
         </p>
         <p>
 
@@ -167,14 +169,13 @@
       public void myComponentTest() {
 
         // we have some test doubles we want to use
-        MyRedisApi mockRedisApi = mock(MyRedisApi.class);
+        MyRedisApi mockRedis = mock(MyRedisApi.class);
         MyDatabaseApi mockDb = mock(MyDatabaseApi.class);
 
         // create the context programmatically with some
         // test doubles rather than the real dependencies
         try (BeanContext context = new BootContext()
-          .withBean(mockRedisApi)
-          .withBean(mockDb)
+          .withBeans(mockRedis, mockDb)
           .load()) {
 
           // perform a component test (using the test doubles)
@@ -243,15 +244,15 @@
       <div class="col-md-6 feature">
         ```xml
         <dependency>
-          <groupId>io.kanuka</groupId>
-          <artifactId>kanuka</artifactId>
-          <version>0.3</version>
+          <groupId>io.dinject</groupId>
+          <artifactId>dinject</artifactId>
+          <version>0.8</version>
         </dependency>
 
         <dependency>
-          <groupId>io.kanuka</groupId>
-          <artifactId>kanuka-generator</artifactId>
-          <version>0.3</version>
+          <groupId>io.dinject</groupId>
+          <artifactId>dinject-generator</artifactId>
+          <version>0.8</version>
           <scope>provided</scope>
         </dependency>
         ```
@@ -281,7 +282,7 @@
         // ... with some options
         try (BeanContext context = new BootContext()
           .withNoShutdownHook()
-          .withBean(someTestDouble)
+          .withBeans(someTestDouble)
           .load()) {
 
           CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
