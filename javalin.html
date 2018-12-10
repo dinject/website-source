@@ -1,0 +1,159 @@
+<html>
+<head>
+  <title>DInject Javalin controllers</title>
+  <meta name="layout" content="_layout/web.html"/>
+  <meta name="bread0" content="Javalin" href="/javalin"/>
+  <template id="menuNav"><#include "/_layout/_javalin_nav_index.ftl"></template>
+<#assign javalin="active">
+</head>
+<body>
+
+<!--<div class="jumbotron mini">-->
+  <!--<div class="container">-->
+    <!--<h1>Javalin controllers</h1>-->
+  <!--</div>-->
+<!--</div>-->
+
+<!--<div class="container">-->
+
+<h2>Introduction</h2>
+
+<h2 id="getting-started">Getting started</h2>
+<h4>Maven</h4>
+<p>
+  Add <code>dinject</code> and <code>dinject-controller</code> dependencies.
+</p>
+```xml
+<dependency>
+  <groupId>io.dinject</groupId>
+  <artifactId>dinject</artifactId>
+  <version>1.1</version>
+</dependency>
+
+<dependency>
+  <groupId>io.dinject</groupId>
+  <artifactId>dinject-controller</artifactId>
+  <version>1.1</version>
+</dependency>
+```
+<p>
+  Add the APT Annotation processors <code>dinject-generator</code> and <code>javalin-generator</code> typically
+  as scope <code>provided</code>.
+</p>
+```xml
+<dependency>
+  <groupId>io.dinject</groupId>
+  <artifactId>dinject-generator</artifactId>
+  <version>1.1</version>
+  <scope>provided</scope>
+</dependency>
+
+<dependency>
+  <groupId>io.dinject</groupId>
+  <artifactId>javalin-generator</artifactId>
+  <version>1.1</version>
+  <scope>provided</scope>
+</dependency>
+```
+
+
+<h2 id="controller" class="erk">@Controller</h2>
+<p>
+  Create controllers with <code>@Path</code> and <code>@Controller</code>.  The <code>javalin-generator</code> will
+  generate source code for mapping web routes to the controller method.
+</p>
+```java
+
+@Controller
+@Path("/hello")
+class HelloController {
+
+  private final MyService myService;
+
+  @Inject
+  HelloController(MyService myService) {
+    this.myService = myService;
+  }
+
+  @Get("/:id")
+  HelloDto getById(int id, String otherParam) {
+    ...
+    return new HelloDto(...);
+  }
+
+
+  @Post
+  void save(HelloDto dto, Context context) {
+    // save hello data ...
+  }
+
+  @Get
+  List<HelloDto> getAll() {
+    return myService.findAll();
+  }
+
+}
+
+```
+<p>
+  The controllers can have dependencies as long as they are <code>@Singleton</code> (and DInject will then add
+  them to the context used for dependency injection).
+</p>
+
+<h2 id="get">@Get</h2>
+<p>
+  Annotate methods on the controller with <code>@Get</code>, <code>@Put</code>, <code>@Post</code>, <code>@Delete</code>
+  or <code>@Patch</code>. Methods with these annotations will be mapped to web routes.
+</p>
+
+<h2 id="context">Context</h2>
+<p>
+  Methods can use <code>io.javalin.Context</code> as a method argument. The web route will pass the context on to the
+  controller method. We want to do this when we want full access including things like headers, cookies etc.
+</p>
+```java
+  @Post
+  void save(HelloDto dto, Context context) {
+    // use javalin context, get cookies, headers ...
+  }
+```
+
+<h2 id="conversions">Path type conversions</h2>
+<p>
+  There are built in type conversions for path and query parameters for the following types:
+</p>
+<ul>
+  <li>int, long, short, float, double, boolean, Integer, Long, Short, Float, Double, Boolean</li>
+  <li>BigDecimal, UUID, LocalDate, LocalTime, LocalDateTime</li>
+</ul>
+<p>
+  If an argument fails type conversion then <code>InvalidPathArgumentException</code> is thrown. This exception could
+  be mapped to a <code>404</code> response in the exception handler.
+</p>
+<p>
+  Note that <code>path</code> conversions imply the value can NOT be null. Query parameters on the other hand
+  effectively allow null (not specified) values - query parameters are deemed optional.
+</p>
+
+<h2 id="roles">@Roles</h2>
+<p>
+  An application can define a <code>@Roles</code> annotation. If the annotation matches the name <code>"Roles"</code>
+  then it is deemed to define application security roles and generates appropriate code in the web route.
+</p>
+```java
+  @Roles({ANYONE})
+  @Get
+  List<HelloDto> getAll() {
+    ...
+  }
+
+```
+```java
+  ApiBuilder.get("/hello", ctx -> {
+    ctx.json(controller.getAll());
+    ctx.status(200);
+  }, roles(ANYONE));
+```
+<!--</div>-->
+</body>
+</html>

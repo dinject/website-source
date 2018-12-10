@@ -10,8 +10,9 @@
     <div class="col-md-9">
       <div class="jumbotron">
         <div class="container">
-          <h1>DInject dependency injection</h1>
-          <h3>Current version - <span class="dinject-version">0.8</span></h3>
+          <h1><img src="/images/favicon.ico" width="50"> DInject - <span style="font-size:25px; font-weight: normal;">Dependency injection</span></h1>
+          <!--<h2>Dependency injection</h2>-->
+          <h3>Current version - <span class="dinject-version">1.1</span></h3>
           <h2 style="margin-left: 30px;">Dagger2 style DI for server side JVM developers</h2>
           <h2 style="margin-left: 30px;">No reflection, no classpath scanning, no dynamic proxies</h2>
           <h2 style="margin-left: 30px;">APT based - generates source code for DI</h2>
@@ -21,6 +22,7 @@
     <div class="col-md-3 main-pg-idx">
       <ul>
         <li><h4><a href="/docs"><i class="fas fa-chevron-right"></i> Documentation</a></h4></li>
+        <li><h4><a href="/javalin"><i class="fas fa-chevron-right"></i> Javalin</a></h4></li>
         <li><h4><a href="/spring"><i class="fas fa-chevron-right"></i> Spring comparison</a></h4></li>
         <li><h4><a href="/dagger"><i class="fas fa-chevron-right"></i> Dagger comparison</a></h4></li>
         <li><h4><a href="/micronaut"><i class="fas fa-chevron-right"></i> Micronaut comparison</a></h4></li>
@@ -39,6 +41,24 @@
 
 <div class="erkbg mtl">
   <div class="container">
+
+    <div class="row">
+      <div class="col-md-3 feature">
+        <h4>How it works</h4>
+        <iframe width="270" height="160" src="https://www.youtube.com/embed/wIBGFobFkLo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <div class="col-md-3 feature">
+        <h4>Multiple modules</h4>
+        <!--<iframe width="270" height="160" src="https://www.youtube.com/embed/wIBGFobFkLo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+      </div>
+
+      <div class="col-md-3 feature">
+        <h4><a href="javalin">Javalin Controllers</a></h4>
+        <!--<iframe width="270" height="160" src="https://www.youtube.com/embed/wIBGFobFkLo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+      </div>
+
+    </div>
 
     <h2 class="erk ">About DInject</h2>
 
@@ -148,6 +168,38 @@
       </div>
     </div>
 
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+    <div class="row">
+      <div class="col-md-4 feature">
+        <h3>@Primary and @Secondary</h3>
+        <p>
+          <code>@Primary</code> matches Spring DI's <code>@Primary</code> in terms of function and use.
+        </p>
+        <p>
+          When we have multiple dependencies we can use <code>@Named</code> to specify a specific dependency to use.
+          Alternatively we can use <code>@Primary</code> to make a dependency the preferred dependency and
+          <code>@Secondary</code> to make a dependency the least preferred dependency.
+        </p>
+        <p>
+          Generally we use <code>@Primary</code> and <code>@Secondary</code> most often when we are have dependencies in
+          multiple modules/jars.
+        </p>
+      </div>
+      <div class="col-md-6 feature mtl">
+        ```java
+        @Primary
+        @Singleton
+        public class BestEmailSender implements EmailSender {
+
+          ...
+        }
+          ```
+      </div>
+    </div>
+
     <p>&nbsp;</p>
     <p>&nbsp;</p>
 
@@ -194,7 +246,7 @@
       <div class="col-md-4 feature">
         <h3>Modules</h3>
         <p>
-          We can also want perform dependency injection with beans in other modules (jars).
+          We can also want perform dependency injection with beans across multiple modules (jars).
         </p>
         <p>
           We do this by using <code>@ContextModule</code> to define the module dependencies.
@@ -246,13 +298,13 @@
         <dependency>
           <groupId>io.dinject</groupId>
           <artifactId>dinject</artifactId>
-          <version>0.8</version>
+          <version>1.1</version>
         </dependency>
 
         <dependency>
           <groupId>io.dinject</groupId>
           <artifactId>dinject-generator</artifactId>
-          <version>0.8</version>
+          <version>1.1</version>
           <scope>provided</scope>
         </dependency>
         ```
