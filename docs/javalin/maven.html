@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h2 id="maven">Maven</h2>
+<h2 id="maven">Getting started with Maven</h2>
 <p>
   Add <code>dinject</code> and <code>dinject-controller</code> dependencies.
 </p>
@@ -24,25 +24,35 @@
   <version>1.5</version>
 </dependency>
 ```
+
+<h3>Java APT</h3>
 <p>
-  Add the APT Annotation processors <code>dinject-generator</code> and <code>javalin-generator</code> typically
-  as scope <code>provided</code>.
+  For Java we add the APT Annotation processors <code>dinject-generator</code> and <code>javalin-generator</code>.
+  We typically use <code>provided</code> scope for these APT processors.
 </p>
 ```xml
+<!-- APT processors -->
+
 <dependency>
   <groupId>io.dinject</groupId>
   <artifactId>dinject-generator</artifactId>
-  <version>1.1</version>
+  <version>1.5</version>
   <scope>provided</scope>
 </dependency>
 
 <dependency>
   <groupId>io.dinject</groupId>
   <artifactId>javalin-generator</artifactId>
-  <version>1.1</version>
+  <version>1.5</version>
   <scope>provided</scope>
 </dependency>
 ```
+
+<h3>Kotlin KAPT</h3>
+<p>
+  For Kotlin KAPT the easiest thing to do is to use a maven tile that registers the KAPT processors
+  with the Kotlin compiler.
+</p>
 
 <@next "Controller" "controller"/>
 

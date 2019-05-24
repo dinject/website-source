@@ -1,5 +1,5 @@
 
-<@smallnav activeCheck="${javalin!''}" url="/javalin/" title="Javalin"/>
+<@smallnav activeCheck="${javalin!''}" url="/docs/javalin/" title="Javalin"/>
 <@smallnav activeCheck="${_maven!''}" url="/docs/javalin/maven" title="Maven"/>
 <@smallnav activeCheck="${controller!''}" url="/docs/javalin/controller" title="@Controller"/>
 <@smallnav activeCheck="${annotations!''}" url="/docs/javalin/annotations" title="@Get etc"/>
