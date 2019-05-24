@@ -13,44 +13,52 @@
   generate source code for mapping web routes to the controller method.
 </p>
 ```java
-
 @Controller
-@Path("/hello")
-class HelloController {
+@Path("/foo")
+class FooController {
 
   private final MyService myService;
 
   @Inject
-  HelloController(MyService myService) {
+  FooController(MyService myService) {
     this.myService = myService;
   }
 
   @Get("/:id")
-  HelloDto getById(int id, String otherParam) {
+  Foo getById(int id, String otherParam) {
     ...
-    return new HelloDto(...);
   }
 
-
   @Post
-  void save(HelloDto dto, Context context) {
-    // save hello data ...
+  void save(Foo foo) {
+    ...
   }
 
   @Get
-  List<|HelloDto> getAll() {
+  List<|Foo> getAll() {
     return myService.findAll();
   }
-
 }
 
 ```
 <p>
-  The controllers can have dependencies injected as long as they are <code>@Singleton</code>.
-  DInject will then add them to the context used for dependency injection.
+  The controllers can have dependencies injected. DInject will then add them to the context
+  used for dependency injection.
 </p>
 
-<@next "@Get" "annotations"/>
+<h2>Testing</h2>
+<p>
+  One of the big motivations of having these controllers is to help with testing.
+</p>
+<p>
+  When testing the FooController:
+</p>
+<ul>
+  <li>We can create FooController instances with mock/test doubles for it's dependencies (MyService)</li>
+  <li>We can largely test the methods without any web context/request/response objects</li>
+</ul>
+
+<@next "@Get @Post etc" "annotations"/>
 
 </body>
 </html>
