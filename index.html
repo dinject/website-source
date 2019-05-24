@@ -12,7 +12,7 @@
         <div class="container">
           <h1><img src="/images/favicon.ico" width="50"> DInject - <span style="font-size:25px; font-weight: normal;">Dependency injection</span></h1>
           <!--<h2>Dependency injection</h2>-->
-          <h3>Current version - <span class="dinject-version">1.1</span></h3>
+          <h3>Current version - <span class="dinject-version">1.5</span></h3>
           <h2 style="margin-left: 30px;">Dagger2 style DI for server side JVM developers</h2>
           <h2 style="margin-left: 30px;">No reflection, no classpath scanning, no dynamic proxies</h2>
           <h2 style="margin-left: 30px;">APT based - generates source code for DI</h2>
@@ -62,7 +62,7 @@
           <a target="_blank" href="https://google.github.io/dagger/">Google Dagger</a>
         </p>
         <p>
-          This makes it fast with low overhead, perfect for Kubernates, Docker, Microservices style development.
+          This makes it fast with low overhead, perfect for Kubernetes, Docker, Microservices style development.
         </p>
         <p>
           Annotate components with <code>@Singleton</code> and use <code>@Inject</code> to specify constructor
@@ -85,6 +85,29 @@
           ...
 
           ```
+      </div>
+    </div>
+
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+    <div class="row">
+      <div class="col-md-4 feature">
+        <h3>SystemContext</h3>
+        <p>
+          SystemContext provides a simple way to get beans from the context.
+        </p>
+      </div>
+
+      <div class="col-md-6 feature mtl">
+```java
+// Get a bean
+MyInterface mybean = SystemContext.getBean(MyInterface.class);
+
+// Get all the beans that implement an interface
+// e.g. All WebRoutes / Controllers ... from DI Context
+List<|WebRoutes> webRoutes = SystemContext.getBeans(WebRoutes.class);
+```
       </div>
     </div>
 
@@ -291,13 +314,13 @@
         <dependency>
           <groupId>io.dinject</groupId>
           <artifactId>dinject</artifactId>
-          <version>1.1</version>
+          <version>1.5</version>
         </dependency>
 
         <dependency>
           <groupId>io.dinject</groupId>
           <artifactId>dinject-generator</artifactId>
-          <version>1.1</version>
+          <version>1.5</version>
           <scope>provided</scope>
         </dependency>
         ```

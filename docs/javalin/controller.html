@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<h2 id="controller" class="erk">@Controller</h2>
+<h2 id="controller">@Controller</h2>
 <p>
   Create controllers with <code>@Path</code> and <code>@Controller</code>.  The <code>javalin-generator</code> will
   generate source code for mapping web routes to the controller method.
@@ -49,6 +49,8 @@ class HelloController {
   The controllers can have dependencies injected as long as they are <code>@Singleton</code>.
   DInject will then add them to the context used for dependency injection.
 </p>
+
+<@next "@Get" "annotations"/>
 
 </body>
 </html>
