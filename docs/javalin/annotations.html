@@ -1,0 +1,31 @@
+<html>
+<head>
+  <title>DInject Javalin controllers</title>
+  <meta name="layout" content="_layout/parent_javalin.html"/>
+  <meta name="bread2" content="@Get etc" href="/docs/javalin/annotations"/>
+<#assign annotations="active">
+</head>
+<body>
+
+<h2 id="get">@Get</h2>
+<p>
+  Annotate methods on the controller with <code>@Get</code>, <code>@Put</code>, <code>@Post</code>, <code>@Delete</code>
+  or <code>@Patch</code>. Methods with these annotations will be mapped to web routes.
+</p>
+
+
+```java
+
+@Get(":id")
+void getFoo(long id) {
+  ...
+}
+
+@Post
+void save(HelloDto dto) {
+  ...
+}
+```
+
+</body>
+</html>

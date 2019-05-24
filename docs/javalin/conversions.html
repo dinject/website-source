@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>DInject Javalin controllers</title>
+  <meta name="layout" content="_layout/parent_javalin.html"/>
+  <meta name="bread2" content="Type conversions" href="/docs/javalin/conversions"/>
+<#assign conversions="active">
+</head>
+<body>
+
+
+<h2 id="conversions">Path type conversions</h2>
+<p>
+  There are built in type conversions for path and query parameters for the following types:
+</p>
+<ul>
+  <li>int, long, short, float, double, boolean, Integer, Long, Short, Float, Double, Boolean</li>
+  <li>BigDecimal, UUID, LocalDate, LocalTime, LocalDateTime</li>
+</ul>
+<p>
+  If an argument fails type conversion then <code>InvalidPathArgumentException</code> is thrown. This exception could
+  be mapped to a <code>404</code> response in the exception handler.
+</p>
+<p>
+  Note that <code>path</code> conversions imply the value can NOT be null. Query parameters on the other hand
+  effectively allow null (not specified) values - query parameters are deemed optional.
+</p>
+
+</body>
+</html>

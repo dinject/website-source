@@ -1,14 +1,9 @@
 
-<@smallnav activeCheck="${javalin!''}" url="/javalin/" title="Javalin">
-<ul>
-  <li><a href="/javalin#getting-started">Getting started</a></li>
-  <li><a href="/javalin#controller">@Controller</a></li>
-  <li><a href="/javalin#get">@Get</a></li>
-  <li><a href="/javalin#context">Context</a></li>
-  <li><a href="/javalin#conversions">Type conversions</a></li>
-  <li><a href="/javalin#roles">@Roles</a></li>
-  <li><a href="/javalin/#list">List</a></li>
-  <li><a href="/javalin/#provider">Provider</a></li>
-</ul>
-</@smallnav>
+<@smallnav activeCheck="${javalin!''}" url="/javalin/" title="Javalin"/>
+<@smallnav activeCheck="${_maven!''}" url="/docs/javalin/maven" title="Maven"/>
+<@smallnav activeCheck="${controllers!''}" url="/docs/javalin/controller" title="@Controller"/>
+<@smallnav activeCheck="${annotations!''}" url="/docs/javalin/annotations" title="@Get etc"/>
+<@smallnav activeCheck="${context!''}" url="/docs/javalin/context" title="Context"/>
+<@smallnav activeCheck="${conversions!''}" url="/docs/javalin/conversions" title="Type conversions"/>
+<@smallnav activeCheck="${roles!''}" url="/docs/javalin/roles" title="@Roles"/>
 

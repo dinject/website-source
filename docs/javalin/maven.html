@@ -1,0 +1,49 @@
+<html>
+<head>
+  <title>DInject Javalin controllers</title>
+  <meta name="layout" content="_layout/parent_javalin.html"/>
+  <meta name="bread2" content="Maven" href="/docs/javalin/maven"/>
+<#assign _maven="active">
+</head>
+<body>
+
+<h2 id="maven">Maven</h2>
+<p>
+  Add <code>dinject</code> and <code>dinject-controller</code> dependencies.
+</p>
+```xml
+<dependency>
+  <groupId>io.dinject</groupId>
+  <artifactId>dinject</artifactId>
+  <version>1.5</version>
+</dependency>
+
+<dependency>
+  <groupId>io.dinject</groupId>
+  <artifactId>dinject-controller</artifactId>
+  <version>1.5</version>
+</dependency>
+```
+<p>
+  Add the APT Annotation processors <code>dinject-generator</code> and <code>javalin-generator</code> typically
+  as scope <code>provided</code>.
+</p>
+```xml
+<dependency>
+  <groupId>io.dinject</groupId>
+  <artifactId>dinject-generator</artifactId>
+  <version>1.1</version>
+  <scope>provided</scope>
+</dependency>
+
+<dependency>
+  <groupId>io.dinject</groupId>
+  <artifactId>javalin-generator</artifactId>
+  <version>1.1</version>
+  <scope>provided</scope>
+</dependency>
+```
+
+
+</body>
+</html>

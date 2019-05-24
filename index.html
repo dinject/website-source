@@ -22,7 +22,7 @@
     <div class="col-md-3 main-pg-idx">
       <ul>
         <li><h4><a href="/docs"><i class="fas fa-chevron-right"></i> Documentation</a></h4></li>
-        <li><h4><a href="/javalin"><i class="fas fa-chevron-right"></i> Javalin</a></h4></li>
+        <li><h4><a href="/docs/javalin"><i class="fas fa-chevron-right"></i> Javalin</a></h4></li>
         <li><h4><a href="/spring"><i class="fas fa-chevron-right"></i> Spring comparison</a></h4></li>
         <li><h4><a href="/dagger"><i class="fas fa-chevron-right"></i> Dagger comparison</a></h4></li>
         <li><h4><a href="/micronaut"><i class="fas fa-chevron-right"></i> Micronaut comparison</a></h4></li>
@@ -31,13 +31,6 @@
   </div>
 </div>
 
-<!--<div class="container mtl">-->
-  <!--<div class="row">-->
-    <!--<div class="col-md-9">-->
-      <!--<div id="nav-search"><#include "/_layout/_searchinput.ftl"></div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
 
 <div class="erkbg mtl">
   <div class="container">
@@ -45,17 +38,16 @@
     <div class="row">
       <div class="col-md-3 feature">
         <h4>How it works</h4>
-        <iframe width="270" height="160" src="https://www.youtube.com/embed/wIBGFobFkLo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe width="250" height="160" src="https://www.youtube.com/embed/wIBGFobFkLo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
 
       <div class="col-md-3 feature">
         <h4>Multiple modules</h4>
-        <!--<iframe width="270" height="160" src="https://www.youtube.com/embed/wIBGFobFkLo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
       </div>
 
       <div class="col-md-3 feature">
         <h4><a href="javalin">Javalin Controllers</a></h4>
-        <!--<iframe width="270" height="160" src="https://www.youtube.com/embed/wIBGFobFkLo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
+        <iframe  width="250" height="160" src="https://www.youtube.com/embed/A3z7Z8xKsrE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
 
     </div>
@@ -227,7 +219,8 @@
         // create the context programmatically with some
         // test doubles rather than the real dependencies
         try (BeanContext context = new BootContext()
-          .withBeans(mockRedis, mockDb)
+          .withBean(MyRedisApi.class, mockRedis)
+          .withBean(MyDatabaseApi.class, mockDb)
           .load()) {
 
           // perform a component test (using the test doubles)

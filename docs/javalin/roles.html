@@ -1,0 +1,37 @@
+<html>
+<head>
+  <title>DInject Javalin controllers</title>
+  <meta name="layout" content="_layout/parent_javalin.html"/>
+  <meta name="bread2" content="@Roles" href="/docs/javalin/roles"/>
+<#assign role="active">
+</head>
+<body>
+
+<h2 id="roles">@Roles</h2>
+<p>
+  An application can define a <code>@Roles</code> annotation. If the annotation matches the name <code>"Roles"</code>
+  then it is deemed to define application security roles and generates appropriate code in the web route.
+</p>
+```java
+@Roles({ADMIN})
+@Get
+List<|HelloDto> getAll() {
+  ...
+}
+
+```
+<p>
+  The generated code includes the Javalin roles check.
+</p>
+
+```java
+
+// Generated code ...
+
+ApiBuilder.get("/hello", ctx -> {
+  ctx.json(controller.getAll());
+  ctx.status(200);
+}, roles(ADMIN));
+```
+</body>
+</html>
