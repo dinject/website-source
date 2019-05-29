@@ -1,0 +1,117 @@
+<html>
+<head>
+  <title>DInject Javalin controllers</title>
+  <meta name="layout" content="_layout/parent_javalin.html"/>
+  <meta name="bread2" content="JAX-RS" href="/docs/javalin/jaxrs"/>
+  <#assign jaxrs="active">
+</head>
+<body>
+
+
+<h2 id="jaxrs">JAX-RS</h2>
+<p>
+  With the annotation processor we have chosen to use our own annotations
+  for <code>@Path</code>, <code>@Get</code> etc rather than use the JAX-RS ones.
+</p>
+<p>
+  Why not use the JAX-RS annotatons?
+</p>
+<ul>
+  <li>The JAX-RS API dependency also has a LOT of other stuff we don't want</li>
+  <li>We can improve on JAX-RS making our controllers <b>less verbose</b></li>
+  <li>We may support JAX-RS annotations at some future point ... (but lets see how good it can be)</li>
+</ul>
+
+<p>&nbsp;</p>
+<p>
+  The goal is to be as good as we can be and not suffer from <b>annotation overload</b>.
+</p>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <td><h4>DInject Javalin</h4></td>
+    <td><h4>JAX-RS</h4></td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>@Controller</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>@Path</td>
+    <td>@Path</td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><h4>HTTP Methods</h4></td>
+  </tr>
+
+  <tr>
+    <td>@Delete</td>
+    <td>@DELETE + @Path</td>
+  </tr>
+  <tr>
+    <td>@Get</td>
+    <td>@GET + @Path</td>
+  </tr>
+  <tr>
+    <td>@Post</td>
+    <td>@POST + @Path</td>
+  </tr>
+  <tr>
+    <td>@Put</td>
+    <td>@PUT + @Path</td>
+  </tr>
+  <tr>
+    <td>@Patch</td>
+    <td>@PATCH + @Path</td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><h4>Parameters</h4></td>
+  </tr>
+
+  <tr>
+    <td>Not needed</td>
+    <td>@PathParam</td>
+  </tr>
+  <tr>
+    <td>@FormParam + @Default</td>
+    <td>@FormParam + @DefaultValue</td>
+  </tr>
+  <tr>
+    <td>@QueryParam + @Default</td>
+    <td>@QueryParam + @DefaultValue</td>
+  </tr>
+
+  <tr>
+    <td>@Header</td>
+    <td>@HeaderParam</td>
+  </tr>
+
+  <tr>
+    <td>@Cookie</td>
+    <td>@CookieParam</td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><h4>Bean parameters</h4></td>
+  </tr>
+
+  <tr>
+    <td>@Form and @BeanParam</td>
+    <td>@BeanParam</td>
+  </tr>
+
+  </tbody>
+</table>
+
+
+
+
+<@next "Getting started with Maven" "maven"/>
+
+</body>
+</html>

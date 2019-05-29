@@ -16,11 +16,18 @@
   with annotations like <code>@Path</code> and <code>@Get</code> etc and the javalin-generator will generate
   code that adapts Javalin Web route to the controller methods
 </p>
-<p>
-  &nbsp;
-</p>
 
-<h5>Intro</h5>
+<h3>Goals</h3>
+<ul>
+  <li>Generate code that we would otherwise write ourselves</li>
+  <li>Add no extra weight. We generate source code - no reflection, no extra overhead</li>
+  <li>Controllers should be nice and readable - not overly littered with annotations</li>
+  <li>Expose and use Javalin Context as much we like</li>
+</ul>
+
+
+
+<h3>Introduction</h3>
 <p>
   Introduction to using <code>javalin-generator</code> to generate web routes for <a href="https://javalin.io">Javalin</a>.
 </p>
@@ -39,26 +46,24 @@
 </p>
 ```java
 @Controller
-@Path("/foo")
-class FooController {
+@Path("/customers")
+class CustomerController {
 
   final MyDependency myDependency;
 
-  FooController(MyDependency myDependency) {
+  CustomerController(MyDependency myDependency) {
     this.myDependency = myDependency;
   }
 
-  @Get(":id/some/:other")
-  Foo getById(long id, String other, String notPath) {
-
-    System.out.println("got query parameter: "+notPath);
-    return new Foo(id, other + myDependency.hello());
+  @Get(":id")
+  Customer getById(UUID id) {
+    ...
   }
 
   @Roles(AppRoles.ADMIN)
-  @Get("/other/:name")
-  void getOther(Context ctx, String name) {
-    System.out.println("other name: "+name);
+  @Get("/type/:type")
+  List<|Customer> findByType(String type, String orderBy) {
+    ...
   }
 }
 ```
@@ -76,31 +81,30 @@ class FooController {
 </ul>
 
 ```java
-@Generated("io.dinject.javlin.generator")
+@Generated("io.dinject.javalin.generator")
 @Singleton
-public class FooController$route implements WebRoutes {         // (A)
+public class CustomerController$route implements WebRoutes {         // (A)
 
- private final FooController controller;
+ private final CustomerController controller;
 
- public FooController$route(FooController controller) {
+ public CustomerController$route(CustomerController controller) {
    this.controller = controller;
  }
 
   @Override
   public void registerRoutes() {
 
-    ApiBuilder.get("/foo/:id/some/:other", ctx -> {             // (B)
+    ApiBuilder.get("/customers/:id", ctx -> {                   // (B)
       ctx.status(200);
-      long id = asLong(ctx.pathParam("id"));                    // (C)
-      String other = ctx.pathParam("other");                    // (C)
-      String notPath = ctx.queryParam("notPath");               // (C)
-      ctx.json(controller.getById(id, other, notPath));         // (D), (E)
+      UUID id = asUUID(ctx.pathParam("id"));                    // (C)
+      ctx.json(controller.getById(id));                         // (D), (E)
     });
 
-    ApiBuilder.get("/foo/other/:name", ctx -> {                 // (B)
+    ApiBuilder.get("/customers/type/:type", ctx -> {            // (B)
       ctx.status(200);
-      String name = ctx.pathParam("name");                      // (C)
-      controller.getOther(ctx, name);                           // (D)
+      String type = ctx.pathParam("type");                      // (C)
+      String orderBy = ctx.queryParam("orderBy");               // (C)
+      ctx.json(controller.findByType(type, orderBy));           // (D), (E)
     }, roles(ADMIN));                                           // (F)
 
   }
@@ -136,8 +140,7 @@ public class FooController$route implements WebRoutes {         // (A)
   }
 ```
 
-
-<@next "Getting started with Maven" "maven"/>
+<@next "JAX-RS" "jaxrs"/>
 
 </body>
 </html>
