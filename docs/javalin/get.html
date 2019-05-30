@@ -92,12 +92,12 @@ public List<|Cat> findCats(long id, LocalDate date, String orderBy) {
 ```
 <p>
   We use <code>@QueryParam</code> when we want to be explicit or when a query parameter uses snake case
-  or similar that doesn't match the method parameter name (a valid Java/Kotlin parameter name).
+  or similar that isn't a valid Java/Kotlin identifier.
   For example:
 </p>
 <p>
   In the following example we explicitly use <em>@QueryParam("order-by")</em> because of snake case parameter
-  <code>"order-by"</code> is not a valid Java/Kotlin method parameter name.
+  <code>"order-by"</code> is not a valid Java/Kotlin identifier.
 </p>
 ```java
 @Get(":id/:date")
