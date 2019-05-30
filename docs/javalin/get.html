@@ -22,12 +22,12 @@ class CustomerController {
     ...
   }
 
-  @Get(":id")
+  @Get("/:id")
   Customer getById(long id) {
     ...
   }
 
-  @Get(":id/contacts")
+  @Get("/:id/contacts")
   List<|Contacts> getContacts(long id) {
     ...
   }
@@ -44,7 +44,7 @@ class CustomerController {
   The path parameter names need to be matched by method parameter names on the controller. For example:
 </p>
 ```java
-@Get(":id/:startDate/:sort")
+@Get("/:id/:startDate/:sort")
 List<|Bazz> findBazz(long id, LocalDate startDate, String sort) {
 
   // id, startDate, sort ... match
@@ -68,7 +68,7 @@ List<|Bazz> findBazz(long id, LocalDate startDate, String sort) {
 // JAX-RS
 
 @GET
-@Path("{id}/{startDate}/{sort}")
+@Path("/{id}/{startDate}/{sort}")
 List<|Bazz> findBazz(@PathParam("id") long id, @PathParam("startDate") LocalDate startDate, @PathParam("sort") String sort) {
 
   // we start getting "annotation noise" ...
@@ -85,7 +85,7 @@ List<|Bazz> findBazz(@PathParam("id") long id, @PathParam("startDate") LocalDate
   In the following example <code>orderBy</code> is not a path parameter and defaults to being a <code>@QueryParam</code>
 </p>
 ```java
-@Get(":id/:date")
+@Get("/:id/:date")
 public List<|Cat> findCats(long id, LocalDate date, String orderBy) {
   ...
 }
@@ -100,7 +100,7 @@ public List<|Cat> findCats(long id, LocalDate date, String orderBy) {
   <code>"order-by"</code> is not a valid Java/Kotlin identifier.
 </p>
 ```java
-@Get(":id/:date")
+@Get("/:id/:date")
 public List<|Cat> findCats(long id, LocalDate date, @QueryParam("order-by") String orderBy) {
   ...
 }
