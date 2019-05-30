@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Testing, injecting test doubles | DInject dependency injection</title>
+  <title>Testing, Mockito, injecting test doubles | DInject dependency injection</title>
   <meta name="layout" content="_layout/docs.html"/>
   <template id="menuNav"><#include "/_layout/_docs_nav_index.ftl"></template>
   <meta name="bread1" content="Test doubles" href="/docs/test-doubles"/>
@@ -8,32 +8,97 @@
 </head>
 <body>
 
-<h2>Test doubles</h2>
+<h2>Test doubles (and Mockito)</h2>
 <p>
   During testing we often want to wire the bean context but supply some test doubles for certain dependencies.
-  We can use <code>BootContext.withBean()</code> to achieve this.
 </p>
-  ```java
-  @Test
-  public void myComponentTest() {
 
-    // we have some test doubles we want to use
-    MyRedisApi mockRedis = mock(MyRedisApi.class);
-    MyDatabaseApi mockDb = mock(MyDatabaseApi.class);
+<h3>BeanContext.withBeans()</h3>
+<p>
+  We can use <code>withBeans()</code> to supply our own test doubles.
+</p>
+```java
+@Test
+public void myComponentTest() {
 
-    // create the context programmatically with some
-    // test doubles rather than the real dependencies
-    try (BeanContext context = new BootContext()
-      .withBeans(mockRedis, mockDb)
-      .load()) {
+  // create our test doubles to use
+  Pump pump = mock(Pump.class);
+  Grinder grinder = mock(Grinder.class);
 
-      // perform a component test (using the test doubles)
-      CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
-      coffeeMaker.brew();
-    }
+  try (BeanContext context = new BootContext()
+    .withBeans(pump, grinder)
+    .load()) {
+
+    // act
+    CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
+    coffeeMaker.makeIt();
+
+    // assert
+    assertThat(...)
   }
-  ```
 
+}
+```
+
+<h3>BeanContext.withMock()</h3>
+<p>
+  We can use <code>withMock()</code> to have <a href="https://site.mockito.org/">Mockito mocks</a>
+  injected in place of the normal behaviour.
+</p>
+```java
+@Test
+public void myComponentTest() {
+
+  try (BeanContext context = new BootContext()
+    .withMock(Pump.class)
+    .withMock(Grinder.class, grinder -> {
+      // setup the mock
+      when(grinder.grindBeans()).thenReturn("stub response");
+    })
+    .load()) {
+
+    // Act
+    CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
+    coffeeMaker.makeIt();
+
+    verify(grinder).grindBeans();
+}
+```
+
+
+<h3>BeanContext.withSpy()</h3>
+<p>
+  We can use <code>withSpy()</code> to get the beans to be enhanced with <a href="https://www.baeldung.com/mockito-spy">Mockito Spy</a>.
+</p>
+<p>
+  We typically want to do this when we want the bean to have most or all of it's behaviour and
+  only stub out some of it's behaviour and track it's interactions.
+</p>
+```java
+@Test
+public void myComponentTest() {
+
+  try (BeanContext context = new BootContext()
+    .withSpy(Pump.class, pump -> {
+      // setup the spy, only stub out pumpWater()
+      doNothing().when(pump).pumpWater();
+    })
+    .load()) {
+
+    // or setup here ...
+    Pump pump = context.getBean(Pump.class);
+    doNothing().when(pump).pumpSteam();
+
+    // act
+    CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
+    coffeeMaker.makeIt();
+
+    verify(pump).pumpWater();
+    verify(pump).pumpSteam();
+  }
+
+}
+```
 
 </body>
 </html>

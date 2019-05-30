@@ -12,7 +12,7 @@
         <div class="container">
           <h1><img src="/images/favicon.ico" width="50"> DInject - <span style="font-size:25px; font-weight: normal;">Dependency injection</span></h1>
           <!--<h2>Dependency injection</h2>-->
-          <h3>Current version - <span class="dinject-version">1.5</span></h3>
+          <h3>Current version - <span class="dinject-version">1.6</span></h3>
           <h2 style="margin-left: 30px;">Dagger2 style DI for server side JVM developers</h2>
           <h2 style="margin-left: 30px;">No reflection, no classpath scanning, no dynamic proxies</h2>
           <h2 style="margin-left: 30px;">APT based - generates source code for DI</h2>
@@ -235,20 +235,19 @@ List<|WebRoutes> webRoutes = SystemContext.getBeans(WebRoutes.class);
       @Test
       public void myComponentTest() {
 
-        // we have some test doubles we want to use
-        MyRedisApi mockRedis = mock(MyRedisApi.class);
-        MyDatabaseApi mockDb = mock(MyDatabaseApi.class);
-
-        // create the context programmatically with some
-        // test doubles rather than the real dependencies
         try (BeanContext context = new BootContext()
-          .withBean(MyRedisApi.class, mockRedis)
-          .withBean(MyDatabaseApi.class, mockDb)
+          .withMock(Pump.class)
+          .withMock(Grinder.class, grinder -> {
+            // setup the mock
+            when(grinder.grindBeans()).thenReturn("stub response");
+          })
           .load()) {
 
-          // perform a component test (using the test doubles)
+          // Act
           CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
-          coffeeMaker.brew();
+          coffeeMaker.makeIt();
+
+          verify(grinder).grindBeans();
         }
       }
       ```
