@@ -8,21 +8,46 @@
 <body>
 
 
-<h2 id="conversions">Path type conversions</h2>
+<h2 id="conversions">Type conversions</h2>
 <p>
-  There are built in type conversions for path and query parameters for the following types:
+  There are built in type conversions for the following types:
 </p>
 <ul>
   <li>int, long, short, float, double, boolean, Integer, Long, Short, Float, Double, Boolean</li>
   <li>BigDecimal, UUID, LocalDate, LocalTime, LocalDateTime</li>
 </ul>
 <p>
-  If an argument fails type conversion then <code>InvalidPathArgumentException</code> is thrown. This exception could
-  be mapped to a <code>404</code> response in the exception handler.
+  In the following example there is a type conversion for <em>startDate</em> and <em>active</em>.
+</p>
+
+```java
+@Get("/:id/:name")
+HelloDto hello(int id, String name, LocalDate startDate, Boolean active) {
+  ...
+}
+
+```
+The generated code includes the type conversion with <code>toLocalDate()</code> and <code>toBoolean()</code>.
+```java
+ApiBuilder.get("/hello/:id/:name", ctx -> {
+  ctx.status(200);
+  int id = asInt(ctx.pathParam("id"));
+  String name = ctx.pathParam("name");
+  LocalDate startDate = toLocalDate(ctx.queryParam("startDate"));
+  Boolean active = toBoolean(ctx.queryParam("active"));
+  ctx.json(controller.hello(id, name, startDate, active));
+});
+```
+
+
+<h3>InvalidPathArgumentException</h3>
+<p>
+  If a parameter fails type conversion then <code>InvalidPathArgumentException</code> is thrown.
+  This exception is typically mapped to a <code>404</code> response in the exception handler.
 </p>
 <p>
-  Note that <code>path</code> conversions imply the value can NOT be null. Query parameters on the other hand
-  effectively allow null (not specified) values - query parameters are deemed optional.
+  Note that <code>path</code> conversions imply the value can NOT be null. All other parameter
+  types are considered optional/nullable.
 </p>
 
 <@next "Context" "context"/>

@@ -1,0 +1,114 @@
+<html>
+<head>
+  <title>DInject Javalin controllers</title>
+  <meta name="layout" content="_layout/parent_javalin.html"/>
+  <meta name="bread2" content="@Get" href="/docs/javalin/get"/>
+<#assign get="active">
+</head>
+<body>
+
+<h2 id="get">@Get</h2>
+<p>
+  Annotate methods with <code>@Get</code> for HTTP GET web routes.
+</p>
+
+```java
+@Controller
+@Path("/customers")
+class CustomerController {
+
+  @Get
+  List<|Customer> getAll() {
+    ...
+  }
+
+  @Get(":id")
+  Customer getById(long id) {
+    ...
+  }
+
+  @Get(":id/contacts")
+  List<|Contacts> getContacts(long id) {
+    ...
+  }
+
+}
+```
+
+<h2>Path parameters</h2>
+<p>
+  Path parameters have a <code>:</code> colon prefix (as they do with Javalin).
+  For example: <code>:id</code>, <code>:name</code>, <code>:startDate</code> etc.
+</p>
+<p>
+  The path parameter names need to be matched by method parameter names on the controller. For example:
+</p>
+```java
+@Get(":id/:startDate/:sort")
+List<|Bazz> findBazz(long id, LocalDate startDate, String sort) {
+
+  // id, startDate, sort ... match
+  ...
+}
+```
+<p>
+  The design choice is that this convention means that we don't need a <code>@PathParam</code> annotation.
+  When using JAX-RS <em>@PathParam</em> the annotation value almost always matched the method parameter and
+  so this annotation is "noise" without additional value.
+</p>
+<p>
+  As such DInject Controllers do not have a <em>@PathParam</em> annotation and instead rely on the convention
+  that the path parameter and method parameter names match.
+</p>
+<p>
+  The JAX-RS equivalent to the above would be:
+</p>
+```java
+
+// JAX-RS
+
+@GET
+@Path("{id}/{startDate}/{sort}")
+List<|Bazz> findBazz(@PathParam("id") long id, @PathParam("startDate") LocalDate startDate, @PathParam("sort") String sort) {
+
+  // we start getting "annotation noise" ...
+  // making the code hard to read
+
+}
+```
+
+<h2>Query parameters</h2>
+<p>
+  Method parameters that don't match a path parameter are implicitly considered a query parameter.
+</p>
+<p>
+  In the following example <code>orderBy</code> is not a path parameter and defaults to being a <code>@QueryParam</code>
+</p>
+```java
+@Get(":id/:date")
+public List<|Cat> findCats(long id, LocalDate date, String orderBy) {
+  ...
+}
+```
+<p>
+  We use <code>@QueryParam</code> when we want to be explicit or when a query parameter uses snake case
+  or similar that doesn't match the method parameter name (a valid Java/Kotlin parameter name).
+  For example:
+</p>
+<p>
+  In the following example we explicitly use <em>@QueryParam("order-by")</em> because of snake case parameter
+  <code>"order-by"</code> is not a valid Java/Kotlin method parameter name.
+</p>
+```java
+@Get(":id/:date")
+public List<|Cat> findCats(long id, LocalDate date, @QueryParam("order-by") String orderBy) {
+  ...
+}
+```
+
+
+<@next "Post" "post"/>
+
+
+</body>
+</html>

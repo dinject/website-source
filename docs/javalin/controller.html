@@ -14,7 +14,7 @@
 
 <h4>Controller</h4>
 <p>
-  The <code>javalin-generator</code> (APT processor) detects classes with
+  The <em>javalin-generator</em> (APT processor) detects classes with
   <code>@Controller</code> and generates source code for mapping web routes
   to the controller method.
 </p>
@@ -22,7 +22,7 @@
 <h4>Path</h4>
 <p>
   <code>@Path("/contacts")</code> provides the path segment that is
-  prepended to any path segments defined by <code>@Get</code> etc.
+  prepended to any path segments defined by <code>@Get</code>, <code>@Post</code> etc.
 </p>
 
 
@@ -70,7 +70,7 @@ class ContactController {
   <li>We can largely test the methods without any web context/request/response objects</li>
 </ul>
 
-<@next "@Get @Post etc" "annotations"/>
+<@next "@Get" "get"/>
 
 </body>
 </html>

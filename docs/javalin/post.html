@@ -1,0 +1,200 @@
+<html>
+<head>
+  <title>DInject Javalin controllers</title>
+  <meta name="layout" content="_layout/parent_javalin.html"/>
+  <meta name="bread2" content="@Post" href="/docs/javalin/post"/>
+<#assign post="active">
+</head>
+<body>
+
+<h2 id="post">@Post</h2>
+<p>
+  Annotate methods with <code>@Post</code> for HTTP POST web routes.
+</p>
+
+<h3 id="json">Post JSON</h3>
+<p>
+  A method with <code>@Post</code> is by default expecting a JSON body.
+</p>
+<p>
+  In the example below customer is populated via body content expected to be JSON (<code>ctx.bodyAsClass(</code>).
+</p>
+```java
+@Post
+void save(Customer customer) {
+  ...
+}
+```
+<p>
+  The generated code for the above is:
+</p>
+```java
+ApiBuilder.post("/customers", ctx -> {
+  ctx.status(201);
+  Customer customer = ctx.bodyAsClass(Customer.class);
+  controller.save(customer);
+});
+
+```
+
+<h3 id="simple">@Form (Simple form)</h3>
+<p>
+  If the method additionally has <code>@Form</code> then the method parameters default to be form parameters.
+</p>
+<p>
+  In the following example name, email and url all default to be form parameters.
+</p>
+```java
+  @Form @Post("register")
+  void register(String name, String email, String url) {
+    ...
+  }
+```
+<h3 id="formparam">@FormParam</h3>
+<p>
+  For the example above we could alternatively use <code>@FormParam</code> on each of the form parameters
+  rather than <code>@Form</code>. We then get:
+</p>
+```java
+@Post("register")
+void register(@FormParam String name, @FormParam String email, @FormParam String url) {
+  ...
+}
+```
+<p>
+  The expectation is that we most often would use <code>@Form</code> because it reduces
+  "annotation noise" and that we will very rarely use <code>@FormParam</code>. Potentially
+  we only use @FormParam if the parameter name is snake case or similar that
+  doesn't match a valid Java/Kotlin identifier.
+</p>
+
+<p>
+  The generated code for both cases above is the same:
+</p>
+```java
+ApiBuilder.post("/customers/register", ctx -> {
+  ctx.status(201);
+  String name = ctx.formParam("name");
+  String email = ctx.formParam("email");
+  String url = ctx.formParam("url");
+  controller.register(name, email, url);
+});
+
+```
+
+
+<h3 id="formbeans">@Form with "Form Beans" (Large forms)</h3>
+<p>
+  In the case where we are posting a form with a lot of parameters we can define a bean with
+  properties for each of the form parameters (rather than have a method with lots of arguments).
+</p>
+<p>
+  "Form beans" currently must have a default no-arg constructor and bean properties (accessible setters or fields).
+</p>
+<p>
+  Using a form bean can make the code nicer (method signature) and gives us a nicer option to
+  use validation annotations on the "form bean" properties.
+</p>
+```java
+public class MyForm {
+
+  @Size(min=2, max=100)
+  public String name;
+  public String email;
+  public String url;
+}
+```
+```java
+@Form @Post("register")
+void register(MyForm myForm) {
+  ...
+}
+
+```
+The generated code for the above is.
+```java
+ApiBuilder.post("/contacts/register", ctx -> {
+  ctx.status(201);
+  MyForm myForm =  new MyForm();
+  myForm.name = ctx.formParam("name");
+  myForm.email = ctx.formParam("email");
+  myForm.url = ctx.formParam("url");
+
+  controller.register(myForm);
+});
+```
+<p>
+  "Form beans" are nice with forms with lots of properties because they declutter our code
+  and the generated code takes care of putting the values into our bean properties so that
+  we don't have to write that code.
+</p>
+<p>
+  This use of <em>@Form</em> is very similar to JAX-RS <em>@BeanParam</em> except that the
+  bean properties default be being form parameters. With JAX-RS we would put a <code>@FormParam</code>
+  on every property that is a form parameter (which becomes noise on a large form).
+</p>
+
+<h4>Form beans with @QueryParam, @Header, @Cookie</h4>
+<p>
+  The properties on a "form bean" default to being form parameters. We put <em>@QueryParam</em>,
+  <em>@Header</em> or <em>@Cookie</em> on properties that are instead query params, headers or cookies.
+</p>
+```java
+public class MyForm {
+
+  @Size(min=2, max=100)
+  public String name;
+  public String email;
+  public String url;
+
+  @QueryParam
+  public Boolean overrideFlag;
+
+  @Header
+  public String ifModifiedSince;
+
+  @Cookie
+  public String myState;
+}
+
+```
+<p>
+  The generated code populates <em></em> from query params, headers and cookies. The generated code is:
+</p>
+```java
+ApiBuilder.post("/contacts/register", ctx -> {
+  ctx.status(201);
+  MyForm myForm =  new MyForm();
+  myForm.name = ctx.formParam("name");
+  myForm.email = ctx.formParam("email");
+  myForm.url = ctx.formParam("url");
+  myForm.overrideFlag = toBoolean(ctx.queryParam("overrideFlag"));     // queryParam !!
+  myForm.ifModifiedSince = ctx.header("If-Modified-Since");            // header !!
+  myForm.myState = ctx.cookie("myState");                              // cookie !!
+
+  controller.register(myForm);
+});
+```
+
+<h4>Kotlin "Form beans"</h4>
+<p>
+  Right now we are limited to using a default constructor which means for Kotlin we need to
+  use a normal class with properties (it would be nice to use data classes).
+</p>
+<p>
+  The matching Kotlin form is:
+</p>
+```kotlin
+class MyForm {
+  var name: String? = null
+  var email: String? = null
+  var email: url? = null
+}
+```
+
+
+<@next "Put" "put"/>
+
+
+</body>
+</html>
