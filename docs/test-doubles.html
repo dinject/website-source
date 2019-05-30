@@ -61,6 +61,7 @@ public void myComponentTest() {
     CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
     coffeeMaker.makeIt();
 
+    Grinder grinder = context.getBean(Grinder.class);
     verify(grinder).grindBeans();
 }
 ```
