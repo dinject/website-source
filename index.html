@@ -223,12 +223,16 @@ List<|WebRoutes> webRoutes = SystemContext.getBeans(WebRoutes.class);
       <div class="col-md-4 feature">
         <h3>Testing</h3>
         <p>
-          During testing we sometime want to wire the graph but supply some test doubles or mocks for
-          some of the dependencies (similar to Spring test scope).
+          During testing we often want to supply some test doubles
+          or use Mockito mocks or spy's.
         </p>
-        <p>
 
-        </p>
+        <ul>
+          <li><a href="/docs/test-doubles#withBeans">Test doubles</a></li>
+          <li><a href="/docs/test-doubles#withMock">Mockito mock</a></li>
+          <li><a href="/docs/test-doubles#withSpy">Mockito spy</a></li>
+        </ul>
+
       </div>
       <div class="col-md-6 feature mtl">
       ```java
@@ -313,13 +317,13 @@ List<|WebRoutes> webRoutes = SystemContext.getBeans(WebRoutes.class);
         <dependency>
           <groupId>io.dinject</groupId>
           <artifactId>dinject</artifactId>
-          <version>1.5</version>
+          <version>1.6</version>
         </dependency>
 
         <dependency>
           <groupId>io.dinject</groupId>
           <artifactId>dinject-generator</artifactId>
-          <version>1.5</version>
+          <version>1.6</version>
           <scope>provided</scope>
         </dependency>
         ```

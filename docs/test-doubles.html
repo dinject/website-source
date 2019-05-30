@@ -13,7 +13,7 @@
   During testing we often want to wire the bean context but supply some test doubles for certain dependencies.
 </p>
 
-<h3>BeanContext.withBeans()</h3>
+<h3 id="withBeans">BeanContext.withBeans()</h3>
 <p>
   We can use <code>withBeans()</code> to supply our own test doubles.
 </p>
@@ -40,7 +40,7 @@ public void myComponentTest() {
 }
 ```
 
-<h3>BeanContext.withMock()</h3>
+<h3 id="withMock">BeanContext.withMock()</h3>
 <p>
   We can use <code>withMock()</code> to have <a href="https://site.mockito.org/">Mockito mocks</a>
   injected in place of the normal behaviour.
@@ -66,7 +66,7 @@ public void myComponentTest() {
 ```
 
 
-<h3>BeanContext.withSpy()</h3>
+<h3 id="withSpy">BeanContext.withSpy()</h3>
 <p>
   We can use <code>withSpy()</code> to get the beans to be enhanced with <a href="https://www.baeldung.com/mockito-spy">Mockito Spy</a>.
 </p>
