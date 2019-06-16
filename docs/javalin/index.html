@@ -77,19 +77,20 @@ class CustomerController {
   The <code>javalin-generator</code> generates the code below.
 </p>
 <ul>
-  <li>A bean that implements <code>WebRoutes</code>   <b>(A)</b></li>
-  <li>Registers the web routes to Javalin ApiBuilder   <b>(B)</b></li>
-  <li>Obtains path parameters and query parameters  <b>(C)</b></li>
-  <li>Passes the path and query parameters to the controller methods  <b>(D)</b></li>
-  <li>Converts to and from JSON the controller method response or body  <b>(E)</b></li>
-  <li>Adapter @Roles for the web route <b>(F)</b></li>
+  <li>A bean annotated with <code>@Singleton</code>   <b>(A)</b></li>
+  <li>A bean that implements <code>WebRoutes</code>   <b>(B)</b></li>
+  <li>Registers the web routes to Javalin ApiBuilder   <b>(C)</b></li>
+  <li>Obtains path parameters and query parameters  <b>(D)</b></li>
+  <li>Passes the path and query parameters to the controller methods  <b>(E)</b></li>
+  <li>Converts to and from JSON the controller method response or body  <b>(F)</b></li>
+  <li>Adapter @Roles for the web route <b>(G)</b></li>
 
 </ul>
 
 ```java
 @Generated("io.dinject.javalin.generator")
-@Singleton
-public class CustomerController$route implements WebRoutes {         // (A)
+@Singleton                                                       // (A)
+public class CustomerController$route implements WebRoutes {     // (B)
 
  private final CustomerController controller;
 
@@ -100,18 +101,18 @@ public class CustomerController$route implements WebRoutes {         // (A)
   @Override
   public void registerRoutes() {
 
-    ApiBuilder.get("/customers/:id", ctx -> {                   // (B)
+    ApiBuilder.get("/customers/:id", ctx -> {                   // (C)
       ctx.status(200);
-      UUID id = asUUID(ctx.pathParam("id"));                    // (C)
-      ctx.json(controller.getById(id));                         // (D), (E)
+      UUID id = asUUID(ctx.pathParam("id"));                    // (D)
+      ctx.json(controller.getById(id));                         // (E), (F)
     });
 
-    ApiBuilder.get("/customers/type/:type", ctx -> {            // (B)
+    ApiBuilder.get("/customers/type/:type", ctx -> {            // (C)
       ctx.status(200);
-      String type = ctx.pathParam("type");                      // (C)
-      String orderBy = ctx.queryParam("orderBy");               // (C)
-      ctx.json(controller.findByType(type, orderBy));           // (D), (E)
-    }, roles(ADMIN));                                           // (F)
+      String type = ctx.pathParam("type");                      // (D)
+      String orderBy = ctx.queryParam("orderBy");               // (D)
+      ctx.json(controller.findByType(type, orderBy));           // (E), (F)
+    }, roles(ADMIN));                                           // (E)
 
   }
 
@@ -145,6 +146,11 @@ public class CustomerController$route implements WebRoutes {         // (A)
     app.start(8080);
   }
 ```
+<p>
+  Note that there isn't a strict requirement to use DInject for dependency injection.
+  Any DI library that can find and wire the <em>@Singleton</em> bean generated could
+  be used.
+</p>
 
 <@next "JAX-RS" "jaxrs"/>
 
