@@ -2,6 +2,7 @@
 <@smallnav activeCheck="${javalin!''}" url="/docs/javalin/" title="Javalin"/>
 <@smallnav activeCheck="${jaxrs!''}" url="/docs/javalin/jaxrs" title="JAX-RS"/>
 <@smallnav activeCheck="${_maven!''}" url="/docs/javalin/maven" title="Maven"/>
+<@smallnav activeCheck="${gradle!''}" url="/docs/javalin/gradle" title="Gradle"/>
 <@smallnav activeCheck="${controller!''}" url="/docs/javalin/controller" title="@Controller + @Path"/>
 <@smallnav activeCheck="${get!''}" url="/docs/javalin/get" title="@Get"/>
 

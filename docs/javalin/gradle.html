@@ -1,0 +1,64 @@
+<html>
+<head>
+  <title>Gradle | DInject Javalin controllers</title>
+  <meta name="layout" content="_layout/parent_javalin.html"/>
+  <meta name="bread2" content="Gradle" href="/docs/javalin/gradle"/>
+<#assign gradle="active">
+</head>
+<body>
+
+<h2 id="maven">Getting started with Gradle</h2>
+<p>
+  See the example at:
+  <a href="https://github.com/dinject/examples/blob/master/javalin-gradle-java-basic/build.gradle">examples/javalin-gradle-java-basic/build.gradle</a>
+</p>
+<p>
+  Add <em>dinject</em> and <em>dinject-controller</em> as compile dependencies.
+</p>
+
+```groovy
+dependencies {
+    ...
+    compile('io.dinject:dinject:1.8')
+    compile('io.dinject:dinject-controller:1.6')
+    ...
+}
+```
+
+<h3>APT - dinject-generator</h3>
+<p>
+  Add both <em>javalin-generator</em> and <em>dinject-generator</em> as a annotation processors.
+</p>
+
+```groovy
+dependencies {
+    ...
+    annotationProcessor('io.dinject:dinject-generator:1.8')
+    annotationProcessor('io.dinject:javalin-generator:1.6')
+    ...
+}
+```
+
+
+<h3>Kotlin KAPT - dinject-generator</h3>
+<p>
+  See example at: https://github.com/dinject/examples/blob/master/basic-di-kotlin-maven/pom.xml
+</p>
+<p>
+  For use with Kotlin we register <em>dinject-generator</em> as a KAPT processor
+  to the Kotlin compiler.
+</p>
+```groovy
+dependencies {
+    ...
+    kapt('io.dinject:dinject-generator:1.8')
+    kapt('io.dinject:javalin-generator:1.6')
+    ...
+}
+```
+
+
+<@next "Controller" "controller"/>
+
+</body>
+</html>
