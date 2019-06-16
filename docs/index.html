@@ -2,159 +2,41 @@
 <head>
   <meta name="layout" content="_layout/docs.html"/>
   <template id="menuNav"><#include "/_layout/_docs_nav_index.ftl"></template>
-  <meta name="bread1" content="Injection" href="/docs/"/>
-  <#assign injection="active">
+  <meta name="bread1" content="DInject" href="/docs/"/>
+  <#assign index="active">
 </head>
 <body>
 
-<h2 id="singleton">@Singleton</h2>
+<h2 id="dinject">DInject Dependency Injection</h2>
 <p>
-  Put <code>@Singleton</code> on beans that we want dependency injection on.
-  These are beans that are created ("wired") by dependency injection and put into the context.
-  They are then available to be injected into other beans.
-</p>
-
-<h2 id="inject">@Inject</h2>
-<p>
-  Put <code>@Inject</code> on the constructor that should be used for constructor dependency injection.
-  Note that if there is <code>only one constructor</code> we don't need to put the <code>@Inject</code> on it.
+  DInject is designed to be a fast and light dependency injection library for server-side Java and Kotlin
+  developers.
 </p>
 <p>
-  If we want to use field injection put the <code>@Inject</code> on the field. Note that the field must not
-  be <code>private</code> and must not be <code>final</code> for field injection.
-</p>
-
-<h2 id="constructor">Constructor injection</h2>
-```java
-@Singleton
-public class CoffeeMaker {
-
-  private final Pump pump;
-
-  private final Grinder grinder;
-
-  @Inject
-  public CoffeeMaker(Pump pump, Grinder grinder) {
-    this.pump = pump;
-    this.grinder = grinder;
-  }
-  ...
-```
-<p>
-  The above CoffeeMaker is using constructor injection. Both a Pump and Ginder will be injected into the
-  constructor when the DI creates (or "wires") the CoffeeMaker.
+  It is fast and light by using source code generation (like Dagger). There is no use of reflection or classpath
+  scanning.
 </p>
 <p>
-  Note that if there is only 1 constructor it is used for dependency injection and we don't need
-  to specify <code>@Inject</code>.
+  It is orientated to server-side use by providing similar functionality to Spring DI including Lifecycle support,
+  @Factory + @Bean and the ability to get beans from the context (which is what we need in order to use DI for
+  web route controllers for use with Javalin and other web libraries).
 </p>
 
-<h2 id="field">Field injection</h2>
-```java
-@Singleton
-public class CoffeeMaker {
-
-  @Inject
-  Pump pump;
-
-  @Inject
-  Grinder grinder;
-  ...
-```
+<h2 id="aop">No AOP</h2>
 <p>
-  With field injection the <code>@Inject</code> is placed on the field and the field must not be <code>private</code>
-  and it must not be <code>final</code>.
-</p>
-
-<h2 id="mixed">Mixed constructor and field injection</h2>
-<p>
-  We are allowed to mix constructor and field injection. In the below example the Grinder is injected into the constructor
-  and the Pump is injected by field injection.
-</p>
-
-```java
-@Singleton
-public class CoffeeMaker {
-
-  @Inject
-  Pump pump;
-
-  private final Grinder grinder;
-
-  public CoffeeMaker(Grinder grinder) {
-    this.grinder = grinder;
-  }
-```
-
-<h2 id="optional">Optional</h2>
-<p>
-  We can use <code>java.util.Optional</T></code> to inject dependencies that might not exist (might not be provided).
-</p>
-```java
-@Singleton
-class Pump {
-
-  private final Heater heater;
-
-  private final Optional<Widget> widget;
-
-  @Inject
-  Pump(Heater heater, Optional<Widget> widget) {
-    this.heater = heater;
-    this.widget = widget;
-  }
-
-  public void pump() {
-    if (widget.isPresent()) {
-      widget.get().doStuff();
-    }
-    ...
-  }
-}
-```
-
-<h2 id="list">List</h2>
-<p>
-  We can inject a <code>java.util.List</T></code> of beans that implement an interface.
-</p>
-```java
-@Singleton
-public class CombinedBars {
-
-  private final List<Bar> bars;
-
-  @Inject
-  public CombinedBars(List<Bar> bars) {
-    this.bars = bars;
-  }
-```
-
-<h2 id="provider">Provider</h2>
-<p>
-  A Singleton bean can implement <code>javax.inject.Provider</code> to create a bean to be used in injection.
+  Currently DInject does not include AOP. The expectation is that AOP functionality comes
+  with other libraries - for example Ebean ORM has <code>@Transactional</code> and Metrics
+  libraries have their own <code>@Timed</code>.
 </p>
 <p>
-  This is more limited than using <code>@Factory</code> and <code>@Bean</code>. The expectation is that
-  people would generally use Factory and Bean instead of implementing the Provider interface.
+  If we can stick to these additional libraries providing their own AOP/enhancement that has
+  the benefit that DInject has no requirement for creating <em>Dynamic Proxies</em> which
+  have relatively expensive startup cost.
 </p>
-```java
-@Singleton
-public class FooProvider implements Provider<Foo> {
 
-  private final Bazz bazz;
 
-  FooProvider(Bazz bazz) {
-    this.bazz = bazz;
-  }
+<@next "Maven" "maven"/>
 
-  @Override
-  public Foo get() {
-    // maybe do interesting logic, read environment variables ...
-    return new BasicFoo(bazz);
-  }
-}
-
-```
 
 </body>
 </html>

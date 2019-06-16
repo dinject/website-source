@@ -1,5 +1,7 @@
-
-<@smallnav activeCheck="${injection!''}" url="/docs/" title="Injection">
+<@smallnav activeCheck="${index!''}" url="/docs" title="DInject"/>
+<@smallnav activeCheck="${mavenPage!''}" url="/docs/maven" title="Maven"/>
+<@smallnav activeCheck="${gradle!''}" url="/docs/gradle" title="Gradle"/>
+<@smallnav activeCheck="${injection!''}" url="/docs/injection" title="Injection">
 <ul>
   <li><a href="/docs/#singleton">@Singleton</a></li>
   <li><a href="/docs/#inject">@Inject</a></li>

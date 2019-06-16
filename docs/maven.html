@@ -1,0 +1,83 @@
+<html>
+<head>
+  <title>Maven | DInject dependency injection</title>
+  <meta name="layout" content="_layout/docs.html"/>
+  <template id="menuNav"><#include "/_layout/_docs_nav_index.ftl"></template>
+  <meta name="bread1" content="Maven" href="/docs/maven"/>
+  <#assign mavenPage="active">
+</head>
+<body>
+
+<h2>Maven</h2>
+<p>
+  See the basic example at:
+  <a href="https://github.com/dinject/examples/blob/master/basic-di/pom.xml">examples/basic-di/pom.xml</a>
+</p>
+<p>
+  Add <em>dinject</em> as a dependency.
+</p>
+
+```xml
+<dependency>
+  <groupId>io.dinject</groupId>
+  <artifactId>dinject</artifactId>
+  <version>1.8</version>
+</dependency>
+```
+
+<h3>Java APT - dinject-generator</h3>
+<p>
+  Add <em>dinject-generator</em> as a dependency with <em>provided scope</em>.
+</p>
+
+```xml
+<!-- Annotation processor -->
+<dependency>
+  <groupId>io.dinject</groupId>
+  <artifactId>dinject-generator</artifactId>
+  <version>1.8</version>
+  <scope>provided</scope>
+</dependency>
+```
+
+<h3>Kotlin KAPT - dinject-generator</h3>
+<p>
+  See example at:
+  <a href="https://github.com/dinject/examples/blob/master/basic-di-kotlin-maven/pom.xml">examples/basic-di-kotlin-maven/pom.xml</a>
+</p>
+<p>
+  For use with Kotlin we register <em>dinject-generator</em> as a KAPT processor
+  to the Kotlin compiler.
+</p>
+<p>
+  The easiest way to do this is to add the <code>io.dinject.kapt:dinject:1.8</code>
+  maven tile in <em>build / plugins</em> like:
+</p>
+```xml
+<build>
+  <plugins>
+
+    <plugin>
+      <groupId>io.repaint.maven</groupId>
+      <artifactId>tiles-maven-plugin</artifactId>
+      <version>2.12</version>
+      <extensions>true</extensions>
+      <configuration>
+        <tiles>
+          <tile>io.dinject.kapt:dinject:1.8</tile>
+        </tiles>
+      </configuration>
+    </plugin>
+
+  </plugins>
+</build>
+```
+<p>
+  The above includes the <em>dinject-generator</em> annotation processor only. For use with <code>Javalin</code>
+  we instead include the <code>io.dinject.kapt:javalin:1.6</code> tile.
+</p>
+
+<@next "Gradle" "gradle"/>
+
+</body>
+</html>

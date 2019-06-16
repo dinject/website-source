@@ -8,37 +8,17 @@
 </head>
 <body>
 
-<h2>Test doubles (and Mockito)</h2>
+<h2>Test doubles and Mockito</h2>
 <p>
   During testing we often want to wire the bean context but supply some test doubles for certain dependencies.
 </p>
-
-<h3 id="withBeans">BeanContext.withBeans()</h3>
 <p>
-  We can use <code>withBeans()</code> to supply our own test doubles.
+  We use <code>withMock</code> and <code>withSpy</code> to use Mockito mocks and spys and otherwise use
+  <code>withBean</code> to use some other test double that we supply.
 </p>
-```java
-@Test
-public void myComponentTest() {
-
-  // create our test doubles to use
-  Pump pump = mock(Pump.class);
-  Grinder grinder = mock(Grinder.class);
-
-  try (BeanContext context = new BootContext()
-    .withBeans(pump, grinder)
-    .load()) {
-
-    // act
-    CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
-    coffeeMaker.makeIt();
-
-    // assert
-    assertThat(...)
-  }
-
-}
-```
+<p>
+  &nbsp;
+</p>
 
 <h3 id="withMock">BeanContext.withMock()</h3>
 <p>
@@ -51,6 +31,7 @@ public void myComponentTest() {
 
   try (BeanContext context = new BootContext()
     .withMock(Pump.class)
+    .withMock(Heater.class)
     .withMock(Grinder.class, grinder -> {
       // setup the mock
       when(grinder.grindBeans()).thenReturn("stub response");
@@ -100,6 +81,35 @@ public void myComponentTest() {
 
 }
 ```
+
+<h3 id="withBeans">BeanContext.withBeans()</h3>
+<p>
+  We can use <code>withBeans()</code> to supply our own test doubles.
+</p>
+```java
+@Test
+public void myComponentTest() {
+
+  // create our test doubles to use
+  Pump pump = mock(Pump.class);
+  Grinder grinder = mock(Grinder.class);
+
+  try (BeanContext context = new BootContext()
+    .withBeans(pump, grinder)
+    .load()) {
+
+    // act
+    CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
+    coffeeMaker.makeIt();
+
+    // assert
+    assertThat(...)
+  }
+
+}
+```
+
+<@next "Modules" "modules"/>
 
 </body>
 </html>
