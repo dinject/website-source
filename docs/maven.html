@@ -21,7 +21,7 @@
 <dependency>
   <groupId>io.dinject</groupId>
   <artifactId>dinject</artifactId>
-  <version>1.9</version>
+  <version>1.10</version>
 </dependency>
 ```
 
@@ -35,7 +35,7 @@
 <dependency>
   <groupId>io.dinject</groupId>
   <artifactId>dinject-generator</artifactId>
-  <version>1.9</version>
+  <version>1.10</version>
   <scope>provided</scope>
 </dependency>
 ```
@@ -50,7 +50,7 @@
   to the Kotlin compiler.
 </p>
 <p>
-  The easiest way to do this is to add the <code>io.dinject.kapt:dinject:1.9</code>
+  The easiest way to do this is to add the <code>io.dinject.kapt:dinject:1.10</code>
   maven tile in <em>build / plugins</em> like:
 </p>
 ```xml
@@ -64,7 +64,7 @@
       <extensions>true</extensions>
       <configuration>
         <tiles>
-          <tile>io.dinject.kapt:dinject:1.9</tile>
+          <tile>io.dinject.kapt:dinject:1.10</tile>
         </tiles>
       </configuration>
     </plugin>
@@ -74,7 +74,7 @@
 ```
 <p>
   The above includes the <em>dinject-generator</em> annotation processor only. For use with <code>Javalin</code>
-  we instead include the <code>io.dinject.kapt:javalin:1.6</code> tile.
+  we instead include the <code>io.dinject.kapt:javalin:1.9</code> tile.
 </p>
 
 <p>

@@ -77,8 +77,8 @@ class CustomerController {
   The <code>javalin-generator</code> generates the code below.
 </p>
 <ul>
-  <li>A bean annotated with <code>@Singleton</code>   <b>(A)</b></li>
-  <li>A bean that implements <code>WebRoutes</code>   <b>(B)</b></li>
+  <li>A bean annotated with <code>@Singleton</code>   <b>(A)</b> ... picked up for Dependency injection</li>
+  <li>A bean that implements <code>WebRoutes</code>   <b>(B)</b> ... so we can register them all with Javalin</li>
   <li>Registers the web routes to Javalin ApiBuilder   <b>(C)</b></li>
   <li>Obtains path parameters and query parameters  <b>(D)</b></li>
   <li>Passes the path and query parameters to the controller methods  <b>(E)</b></li>

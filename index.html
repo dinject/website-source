@@ -12,7 +12,7 @@
         <div class="container">
           <h1><img src="/images/favicon.ico" width="50"> DInject - <span style="font-size:25px; font-weight: normal;">Dependency injection</span></h1>
           <!--<h2>Dependency injection</h2>-->
-          <h3>Current version - <span class="dinject-version">1.9</span></h3>
+          <h3>Current version - <span class="dinject-version">1.10</span></h3>
           <h2 style="margin-left: 30px;">Dagger2 style DI for server side JVM developers</h2>
           <h2 style="margin-left: 30px;">No reflection, no classpath scanning, no dynamic proxies</h2>
           <h2 style="margin-left: 30px;">APT based - generates source code for DI</h2>
@@ -101,12 +101,21 @@
 
       <div class="col-md-6 feature mtl">
 ```java
-// Get a bean
-MyInterface mybean = SystemContext.getBean(MyInterface.class);
 
-// Get all the beans that implement an interface
-// e.g. All WebRoutes / Controllers ... from DI Context
+// Get all the webroutes
 List<|WebRoutes> webRoutes = SystemContext.getBeans(WebRoutes.class);
+
+// register them with Javalin
+Javalin app = Javalin.create().disableStartupBanner();
+app.routes(() -> webRoutes.forEach(WebRoutes::registerRoutes));
+app.start(8080);
+
+```
+
+```java
+// Get a bean and use it
+CoffeeMaker coffeeMaker = SystemContext.getBean(CoffeeMaker.class);
+coffeeMaker.brew();
 ```
       </div>
     </div>
@@ -309,7 +318,14 @@ List<|WebRoutes> webRoutes = SystemContext.getBeans(WebRoutes.class);
       <div class="col-md-4 feature">
         <h3>Maven</h3>
         <p>
-          Add the 2 dependencies.
+          For Maven and Java add the dependency for <em>dinject</em> and
+          add the annotation process <em>dinject-generator</em> as provided scope.
+        </p>
+        <p>
+          Get started with <a href="/docs/maven">Maven</a>
+        </p>
+        <p>
+          Get started with <a href="/docs/gradle">Gradle</a>
         </p>
       </div>
       <div class="col-md-6 feature">
@@ -317,51 +333,75 @@ List<|WebRoutes> webRoutes = SystemContext.getBeans(WebRoutes.class);
         <dependency>
           <groupId>io.dinject</groupId>
           <artifactId>dinject</artifactId>
-          <version>1.9</version>
+          <version>1.10</version>
         </dependency>
 
+        <!-- Annotation processor -->
         <dependency>
           <groupId>io.dinject</groupId>
           <artifactId>dinject-generator</artifactId>
-          <version>1.9</version>
+          <version>1.10</version>
           <scope>provided</scope>
         </dependency>
         ```
      </div>
    </div>
     <div class="row">
+      <div class="col-md-4 feature">
+        <h3>Use SystemContext</h3>
+        <p>
+          Use SystemContext to obtain beans from the DI context.
+        </p>
+        <p>
+          <a href="/docs/">More details</a>
+        </p>
+      </div>
+      <div class="col-md-6 feature">
+
+        ```java
+        // obtain a bean and use it
+        CoffeeMaker coffeeMaker = SystemContext.getBean(CoffeeMaker.class);
+        coffeeMaker.brew();
+        ```
+
+        ```java
+
+        // register all webroutes with Javalin
+        List<|WebRoutes> webRoutes = SystemContext.getBeans(WebRoutes.class);
+
+        Javalin app = Javalin.create().disableStartupBanner();
+        app.routes(() -> webRoutes.forEach(WebRoutes::registerRoutes));
+        app.start(8080);
+        ```
+      </div>
+    </div>
+    <div class="row">
      <div class="col-md-4 feature">
-       <h3>Use BeanContext</h3>
+       <h3>Use BeanContext (for testing)</h3>
        <p>
-         Use SystemContext or BootContext to obtain the bean context
-         and use the beans.
+         Use BootContext to wire the context for testing purposes
+         with mocks, stubs and test doubles.
+       </p>
+       <p>
+         <a href="/docs/">More details</a>
        </p>
      </div>
      <div class="col-md-6 feature">
-
-       ```java
-
-        // obtain a bean from the context and use it
-        CoffeeMaker coffeeMaker = SystemContext.getBean(CoffeeMaker.class);
-        coffeeMaker.brew();
-
-        ```
 
         ```java
 
         // create the context programmatically
         // ... with some options
         try (BeanContext context = new BootContext()
-          .withNoShutdownHook()
-          .withBeans(someTestDouble)
+          .withMock(Grinder.class)
+          .withMock(Pump.class)
           .load()) {
 
           CoffeeMaker coffeeMaker = context.getBean(CoffeeMaker.class);
           coffeeMaker.brew();
-        }
 
-        // Using try with resources block above such that
-        // the context is closed
+          verify(grinder).grindBeans();
+        }
 
         ```
       </div>
