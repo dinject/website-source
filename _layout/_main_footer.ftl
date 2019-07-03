@@ -3,8 +3,6 @@
   <div class="doc-footer">
     <ul class="doc-footer-links">
       <li> </li>
-      <li> | </li>
-      <li> | </li>
     </ul>
   </div>
 </footer>

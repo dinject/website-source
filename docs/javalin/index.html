@@ -9,27 +9,32 @@
 
 <h2>Javalin controllers</h2>
 <p>
-  DInject provides dependency injection which is good but when using Javalin we want a little more.
+  <em>javalin-generator</em> is an APT processor that allows us to write controllers
+  with annotations like <code>@Path</code> and <code>@Get</code>
 </p>
+
+<h3>Goals</h3>
+<ul>
+  <li>Provide a similar programming style to JAX-RS and Spring</li>
+  <li>Add no extra weight. We generate source code - no reflection, no extra overhead</li>
+  <li>Generate code that we would otherwise write ourselves</li>
+  <li>Controllers should be nice and readable - not overly littered with annotations</li>
+  <li>Expose and use Javalin Context as needed</li>
+  <li>Automatically generate Swagger/OpenAPI documentation</li>
+</ul>
+
 <p>
-  The <code>javalin-generator</code> is an APT processor that allows us to write controllers
-  with annotations like <code>@Path</code> and <code>@Get</code> etc and the javalin-generator will generate
-  code that adapts Javalin Web route to the controller methods
+  In general our controllers should be more testable with dependencies that can be mocked or stubbed
+  and with controller methods having less dependency on 'web constructs' like path, query and form
+  parameters (we can more easily unit test controllers).
 </p>
+
 
 <h3>Examples</h3>
 <p>
   Example projects found in <a href="https://github.com/dinject/examples">dinject/examples</a> for Gradle and Maven
   for both Java and Kotlin.
 </p>
-
-<h3>Goals</h3>
-<ul>
-  <li>Generate code that we would otherwise write ourselves</li>
-  <li>Add no extra weight. We generate source code - no reflection, no extra overhead</li>
-  <li>Controllers should be nice and readable - not overly littered with annotations</li>
-  <li>Expose and use Javalin Context as much we like</li>
-</ul>
 
 
 
@@ -146,10 +151,19 @@ public class CustomerController$route implements WebRoutes {     // (B)
     app.start(8080);
   }
 ```
+
+<h3>Dependency injection</h3>
+<p>
+  The natural way to use the generated "Javalin controller adapters" is to
+  get a DI library to find and wire them. This is what the examples do and
+  they use <em>DInject</em> to do this.
+</p>
 <p>
   Note that there isn't a strict requirement to use DInject for dependency injection.
   Any DI library that can find and wire the <em>@Singleton</em> bean generated could
-  be used.
+  be used. We could use Dagger2 or Guice to wire the controllers if we felt that
+  was a better option (but yes I think DInject is the better option for DI and that
+  is what I'd be recommending).
 </p>
 
 <@next "JAX-RS" "jaxrs"/>
