@@ -2,16 +2,16 @@
 <head>
   <title>DInject Javalin controllers</title>
   <meta name="layout" content="_layout/parent_javalin.html"/>
-  <meta name="bread2" content="Context" href="/docs/javalin/context"/>
+  <meta name="bread2" content="Javalin Context" href="/docs/javalin/context"/>
 <#assign context="active">
 </head>
 <body>
 
 
-<h2 id="context">Context</h2>
+<h2 id="context">Javalin Context</h2>
 <p>
-  Methods can use <code>io.javalin.Context</code> as a method argument. The web route will pass the context on to the
-  controller method.
+  Methods can use <code>io.javalin.Context</code> as a method argument. The web route
+  will pass the context on to the controller method.
 </p>
 <p>
   We want to do this when we want full access including things like headers, cookies etc.

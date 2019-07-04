@@ -19,6 +19,8 @@
 <@smallnav activeCheck="${delete!''}" url="/docs/javalin/put#delete" title="@Delete"/>
 <@smallnav activeCheck="${beanparam!''}" url="/docs/javalin/beanparam" title="@BeanParam"/>
 <@smallnav activeCheck="${conversions!''}" url="/docs/javalin/conversions" title="Type conversions"/>
-<@smallnav activeCheck="${context!''}" url="/docs/javalin/context" title="Context"/>
+<@smallnav activeCheck="${context!''}" url="/docs/javalin/context" title="Javalin Context"/>
 <@smallnav activeCheck="${roles!''}" url="/docs/javalin/roles" title="@Roles"/>
+<@smallnav activeCheck="${openapi!''}" url="/docs/javalin/openapi" title="OpenAPI (Swagger)"/>
+<@smallnav activeCheck="${beanvalidation!''}" url="/docs/javalin/beanvalidation" title="Bean validation"/>
 
