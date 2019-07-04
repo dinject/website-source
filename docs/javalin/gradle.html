@@ -13,6 +13,14 @@
   <a href="https://github.com/dinject/examples/blob/master/javalin-gradle-java-basic/build.gradle">examples/javalin-gradle-java-basic/build.gradle</a>
 </p>
 
+<h3>Gradle 5.2+</h3>
+<p>
+  Use Gradle version 5.2 or greater which has better support for annotation processing.
+</p>
+<p>
+  Also review the IntelliJ IDEA Gradle settings - see below.
+</p>
+
 <h3>Optional: OpenAPI plugin</h3>
 <p>
   Optionally add the <code>io.dinject.openapi</code> plugin to have the openapi.json
@@ -37,10 +45,10 @@ plugins {
 dependencies {
   ...
   compile('io.dinject:dinject:1.11')
-  compile('io.dinject:dinject-controller:1.9')
+  compile('io.dinject:dinject-controller:1.11')
 
   annotationProcessor('io.dinject:dinject-generator:1.11')
-  annotationProcessor('io.dinject:javalin-generator:1.9')
+  annotationProcessor('io.dinject:javalin-generator:1.11')
   ...
 }
 ```
@@ -58,7 +66,7 @@ dependencies {
 dependencies {
   ...
   kapt('io.dinject:dinject-generator:1.11')
-  kapt('io.dinject:javalin-generator:1.9')
+  kapt('io.dinject:javalin-generator:1.11')
   ...
 }
 ```
