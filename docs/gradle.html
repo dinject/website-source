@@ -13,39 +13,37 @@
   See the example at:
   <a href="https://github.com/dinject/examples/blob/master/javalin-gradle-java-basic/build.gradle">examples/javalin-gradle-java-basic/build.gradle</a>
 </p>
+
+<h3>Gradle 5.2+</h3>
 <p>
-  Add <em>dinject</em> as a dependency.
+  Use Gradle version 5.2 or greater which has better support for annotation processing.
+</p>
+<p>
+  Also review the IntelliJ IDEA Gradle settings - see below.
+</p>
+
+<h3>Dependencies</h3>
+<p>
+  Add <em>dinject</em> as a compile dependency and <em>dinject-generator</em> as an annotation processor.
 </p>
 
 ```groovy
 dependencies {
-    ...
-    compile('io.dinject:dinject:1.10')
-    ...
+  ...
+  compile('io.dinject:dinject:1.10')
+
+  annotationProcessor('io.dinject:dinject-generator:1.10')
+  ...
 }
 ```
 
-<h3>APT - dinject-generator</h3>
-<p>
-  Add <em>dinject-generator</em> as a annotation processor.
-</p>
-
-```groovy
-dependencies {
-    ...
-    annotationProcessor('io.dinject:dinject-generator:1.10')
-    ...
-}
-```
-
-
-<h3>Kotlin KAPT - dinject-generator</h3>
+<h3>Kotlin KAPT</h3>
 <p>
   See example at: https://github.com/dinject/examples/blob/master/basic-di-kotlin-maven/pom.xml
 </p>
 <p>
-  For use with Kotlin we register <em>dinject-generator</em> as a KAPT processor
-  to the Kotlin compiler.
+  For use with Kotlin we register <em>dinject-generator</em> as a <code>kapt</code> processor
+  to the Kotlin compiler rather than <em>annotationProcessor</em>.
 </p>
 ```groovy
 dependencies {
@@ -55,10 +53,30 @@ dependencies {
 }
 ```
 
+<h3 id="idea">IntelliJ IDEA with Gradle</h3>
 <p>
-  The above includes the <em>dinject-generator</em> annotation processor only. For use with <code>Javalin</code>
-  we additionally include the <code>io.dinject:javalin-generator:1.9</code> tile.
+  We want to delegate the <code>build</code> to Gradle (to properly include the annotation processing)
+  so check our IDEA settings.
 </p>
+
+<h4>Settings / Build / Compiler / Annotation processors</h4>
+<p>
+  Ensure that <code>Enable annotation processing</code> is disabled so
+  that the build is delegated to Gradle (including the annotation processing):
+</p>
+
+<img src="/images/gradle-idea-disable-apt.png" width="100%">
+
+<h4>Settings / Build / Build tools / Gradle</h4>
+<p>
+  Make sure <code>Build and run</code> is delegated to Gradle.
+</p>
+<p>
+  Optionally set <em>Run tests using</em> to <code>Gradle</code> but leaving it to IntelliJ IDEA should be ok.
+</p>
+
+<img src="/images/gradle-idea-build.png" width="100%">
+
 
 <@next "Injection" "injection"/>
 
