@@ -13,7 +13,7 @@
   <a href="https://github.com/dinject/examples/blob/master/javalin-gradle-java-basic/build.gradle">examples/javalin-gradle-java-basic/build.gradle</a>
 </p>
 
-<h3>Optional: OpenAPI (swagger) plugin</h3>
+<h3>Optional: OpenAPI plugin</h3>
 <p>
   Optionally add the <code>io.dinject.openapi</code> plugin to have the openapi.json
   (swagger) to be generated into <em>src/main/resources/public</em>.
@@ -36,10 +36,10 @@ plugins {
 ```groovy
 dependencies {
   ...
-  compile('io.dinject:dinject:1.10')
+  compile('io.dinject:dinject:1.11')
   compile('io.dinject:dinject-controller:1.9')
 
-  annotationProcessor('io.dinject:dinject-generator:1.10')
+  annotationProcessor('io.dinject:dinject-generator:1.11')
   annotationProcessor('io.dinject:javalin-generator:1.9')
   ...
 }
@@ -57,7 +57,7 @@ dependencies {
 ```groovy
 dependencies {
   ...
-  kapt('io.dinject:dinject-generator:1.10')
+  kapt('io.dinject:dinject-generator:1.11')
   kapt('io.dinject:javalin-generator:1.9')
   ...
 }
