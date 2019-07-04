@@ -134,7 +134,51 @@ ApiBuilder.post("/contacts/register", ctx -> {
   on every property that is a form parameter (which becomes noise on a large form).
 </p>
 
-<h4>Form beans with @QueryParam, @Header, @Cookie properties</h4>
+<h3 id="kotlin-data">Kotlin data class</h3>
+<p>
+  Kotlin data classes are a natural fit for form beans.
+</p>
+```kotlin
+data class SaveForm(var id: Long, var name: String, var someDate: LocalDate?)
+
+
+@Form @Post
+fun saveIt(form: SaveForm) {
+
+  ...
+}
+
+```
+<p>
+  The generated code for the above controller method is:
+</p>
+```java
+ApiBuilder.post("/", ctx -> {
+  ctx.status(201);
+  SaveForm form =  new SaveForm(
+    asLong(checkNull(ctx.formParam("id"), "id")),     // non-nullable type
+    checkNull(ctx.formParam("name"), "name"),         // non-nullable type
+    toLocalDate(ctx.formParam("someDate"))
+  );
+
+  controller.saveIt(form);
+});
+
+```
+
+<p>
+  If the form bean has Kotlin non-nullable types (id and name above) then the
+  generated code includes a null check when populating the bean (the <em>checkNull()</em> method).
+</p>
+<p>
+  If there is not a value for a non-nullable Kotlin property then a validation
+  error will be thrown at that point (this validation exception is thrown relatively
+  early compared to using bean validation on Java form beans).
+</p>
+
+
+
+<h3>Form beans with @QueryParam, @Header, @Cookie properties</h3>
 <p>
   The properties on a "form bean" default to being form parameters. We put <em>@QueryParam</em>,
   <em>@Header</em> or <em>@Cookie</em> on properties that are instead query params, headers or cookies.
@@ -175,23 +219,6 @@ ApiBuilder.post("/contacts/register", ctx -> {
   controller.register(myForm);
 });
 ```
-
-<h4>Kotlin "Form beans"</h4>
-<p>
-  Right now we are limited to using a default constructor which means for Kotlin we need to
-  use a normal class with properties (it would be nice to use data classes).
-</p>
-<p>
-  The matching Kotlin form is:
-</p>
-```kotlin
-class MyForm {
-  var name: String? = null
-  var email: String? = null
-  var email: url? = null
-}
-```
-
 
 <@next "Put" "put"/>
 

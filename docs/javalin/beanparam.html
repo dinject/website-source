@@ -60,7 +60,7 @@ ApiBuilder.get("/cats/search/:type", ctx -> {
 </p>
 <p>
   We could use <em>@BeanParam</em> with forms but then we need to put <em>@FormParam</em> on
-  each of the form parameter properties (like JAX-RS).
+  each of the form parameter properties (like JAX-RS but we start to suffer from annotation overload).
 </p>
 
 <h4>JAX-RS @BeanParam</h4>
