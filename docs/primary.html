@@ -8,16 +8,12 @@
 </head>
 <body>
 
-
 <h2 id="usage">Usage</h2>
 <p>
   <code>@Primary</code> and <code>@Secondary</code> are used when there are
   multiple candidates to inject. They provide a "priority" to determine which dependency to
   inject and use when injecting a single implementation and multiple candidates are available
   to inject.
-</p>
-<p>
-  This is functionally the same as Spring DI's <code>@Primary</code> and <code>@Secondary</code>.
 </p>
 <p>
   We typically use <em>@Primary</em> and <em>@Secondary</em> when we are
@@ -27,12 +23,15 @@
   DInject DI will then wire depending on which modules (jars) are included in the classpath.
 </p>
 
-<h2 id="jsr-extension">JSR 330, Spring DI and CDI</h2>
+<h2 id="spring">Spring DI</h2>
 <p>
-  There is nothing equivalent in JSR 330 for the @Primary and @Secondary annotations which are
-  functionally the same as Spring DI's annotations of the same name - DInject has followed
-  the approach of Spring DI. CDI is different and instead has <em>@Priority</em>, <em>@Default</em>
-  and <em>@Alternative</em> annotations to achieve similar goals.
+  Spring DI provides <code>@Primary</code> and <code>@Secondary</code> annotations and
+  DInject has followed the Spring approach with the same functionally (as has Micronaut DI).
+</p>
+<p>
+  Note that JSR 330 does not have any equivalent functionality. CDI has a different approach
+  and instead has <em>@Priority</em>, <em>@Default</em> and <em>@Alternative</em> annotations
+  to achieve similar goals.
 </p>
 
 <h2 id="primary">@Primary</h2>
@@ -57,7 +56,6 @@
 <p>
   This is functionally the same as Spring DI's <em>@Secondary</em>.
 </p>
-
 
 <@next "Test doubles" "test-doubles"/>
 

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<h2>@Factory</h2>
+<h2 id="factory">@Factory</h2>
 <p>
   Factory beans allow logic to be used when creating a bean. Often this logic is based
   on environment variables or system properties (e.g. programmatically create a bean based on AWS region).
@@ -18,7 +18,7 @@
   that create beans. The factory class can itself have dependencies.
 </p>
 
-<h2>@Bean</h2>
+<h2 id="bean">@Bean</h2>
 <p>
   We annotate methods on the factory class that create a bean with <code>@Bean</code>.
   These methods can have dependencies and will execute in the appropriate order
@@ -62,13 +62,13 @@ class Configuration {
 }
 </pre>
 
-
-<h2 id="beanMethods">@Bean initMethod & destroyMethod</h2>
+<h2 id="initMethod">@Bean initMethod & destroyMethod</h2>
 <p>
   With <code>@Bean</code> we can specify an <code>initMethod</code>
   which will be executed on startup like <code>@PostConstruct</code>.
   Similarly a <code>destroyMethod</code> which execute on shutdown like <code>@PreDestroy</code>.
 </p>
+
 
 <h3>Example</h3>
 <pre content="java">
@@ -96,7 +96,7 @@ class CoffeeMaker {
 }
 </pre>
 
-<h2 id="jsr-extension">JSR 330 Provider interface</h2>
+<h2 id="provider">JSR 330 Provider interface</h2>
 <p>
   Note that using <code>@Factory</code> plus <code>@Bean</code> is an <b>alternative</b> to the standard
   JSR 330 <code>javax.inject.Provider</code> interface.

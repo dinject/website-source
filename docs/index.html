@@ -20,26 +20,32 @@
   @Factory + @Bean, @Primary + @Secondary and the ability to get beans from the context.
 </p>
 
-<h2 id="jsr-330">Based on JSR-330: Dependency Injection for Java</h2>
+<h2 id="jsr-330">Based on JSR-330</h2>
 <p>
-  DInject is based on <a href="http://javax-inject.github.io/javax-inject/api/index.html">JSR-330</a>
+  DInject is based on <a href="http://javax-inject.github.io/javax-inject/api/index.html">JSR-330: Dependency Injection for Java</a>
   - <em>javax.inject</em> with some extensions similar to Spring DI.
 </p>
 
-<h2 id="extensions">Spring DI like Extensions to JSR-330</h2>
+<h2 id="extensions">Spring DI like extensions</h2>
 <h4>@Factory + @Bean</h4>
 <p>
-  DInject has <a href="/docs/factory">@Factory + @Bean</a> which work the same as Spring DI's @Configuration
-  + @Bean. This provides a more convenient alternative to the JSR-330 <em>javax.inject.Provider&lt;T&gt;</em>
-  interface.
+  DInject has <a href="/docs/factory">@Factory + @Bean</a> which work the same as Spring DI's
+  <em>@Configuration + @Bean</em> and also Micronaut's <em>@Factory + @Bean</em>.
 </p>
-<h4>@Primary @Secondary</h4>
 <p>
-  DInject has <a href="/docs/primary">@Primary @Secondary</a> annotations which work the same as Spring DI's
-  @Primary @Secondary annotations. These provide injection precedence in the case of injecting an implementation
-  when multiple injection candidates are available.
+  This provides a more convenient alternative to the JSR-330 <em>javax.inject.Provider&lt;T&gt;</em>
+  interface and is also more natural for people who familiar with Spring DI or Micronaut DI.
 </p>
 
+<h4>@Primary @Secondary</h4>
+<p>
+  DInject has <a href="/docs/primary">@Primary @Secondary</a> annotations which work the same as
+  Spring DI's <em>@Primary @Secondary</em> and also Micronaut DI's <em>@Primary @Secondary</em>.
+</p>
+<p>
+  These provide injection precedence in the case of injecting
+  an implementation when multiple injection candidates are available.
+</p>
 
 <h2 id="spring">Spring DI translation</h2>
 
@@ -110,7 +116,7 @@
   libraries have their own <code><a href="https://avaje.io/metrics/">@Timed</a></code>.
 </p>
 <p>
-  The following are library recommendations for @Transactional, @Config and @Timed.
+  The following are library recommendations for @Transactional, @Value and @Timed.
 </p>
 
 <table class="table">
@@ -123,7 +129,7 @@
     <td><a href="https://ebean.io/docs/transactions/">Ebean @Transactional</a></td>
   </tr>
   <tr>
-    <td>@Config</td>
+    <td>@Value</td>
     <td><a href="https://avaje.io/config/">Avaje Config</a></td>
   </tr>
   <tr>
@@ -133,7 +139,6 @@
 </table>
 
 <@next "Maven" "maven"/>
-
 
 </body>
 </html>
