@@ -11,7 +11,7 @@
 <p>
   Add <em>dinject</em> and <em>dinject-controller</em> dependencies.
 </p>
-```xml
+<pre content="xml">
 <dependency>
   <groupId>io.dinject</groupId>
   <artifactId>dinject</artifactId>
@@ -23,14 +23,14 @@
   <artifactId>dinject-controller</artifactId>
   <version>1.14</version>
 </dependency>
-```
+</pre>
 
 <h3>Java APT</h3>
 <p>
   For Java we add the APT Annotation processors <em>dinject-generator</em> and <em>javalin-generator</em>.
   We typically use <em>provided</em> scope for these APT processors.
 </p>
-```xml
+<pre content="xml>
 <!-- APT processors -->
 
 <dependency>
@@ -46,7 +46,7 @@
   <version>1.14</version>
   <scope>provided</scope>
 </dependency>
-```
+</pre>
 
 <h3>Kotlin KAPT</h3>
 <p>
@@ -58,7 +58,7 @@
   maven tiles for <em>compile, dinject-generator and javalin-generator</em>
   in <em>build / plugins</em> like:
 </p>
-```xml
+<pre content="xml>
 <build>
   <plugins>
 
@@ -88,7 +88,7 @@
 
   </plugins>
 </build>
-```
+</pre>
 <p>
   With Kotlin KAPT the source code isn't generated automatically on compile (as it is with Java)
   but instead we can specify the source code to be re-generated via:

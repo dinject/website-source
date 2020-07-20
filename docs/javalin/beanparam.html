@@ -16,7 +16,7 @@
   We typically do this when we have a set of query parameters that are
   common / shared across a number of endpoints.
 </p>
-```java
+<pre content="java">
 public class CommonParams {
 
   public Long firstRow;
@@ -24,21 +24,21 @@ public class CommonParams {
   public String sortBy;
   public String filter;
 }
-```
+</pre>
 <p>
   We annotate the bean with <code>@BeanParam</code>
 </p>
-```java
+<pre content="java">
 @Get("search/:type")
 List<|Cat> findCats(String type, @BeanParam CommonParams params) {
 
   ...
 }
-```
+</pre>
 <p>
   The generated code for the above is:
 </p>
-```java
+<pre content="java">
 ApiBuilder.get("/cats/search/:type", ctx -> {
   ctx.status(200);
   String type = ctx.pathParam("type");
@@ -51,7 +51,7 @@ ApiBuilder.get("/cats/search/:type", ctx -> {
   ctx.json(controller.findCats(type, params));
 });
 
-```
+</pre>
 <h4>@Form</h4>
 <p>
   <em>@BeanParam</em> and <em>@Form</em> are very similar except with <em>@Form</em> beans the
@@ -77,7 +77,7 @@ ApiBuilder.get("/cats/search/:type", ctx -> {
   The properties on a "bean" default to being query parameters. We put <em>@Header</em> or
   <em>@Cookie</em> on properties that are instead headers or cookies.
 </p>
-```java
+<pre content="java">
 public class CommonParams {
 
   public Long firstRow;
@@ -92,7 +92,7 @@ public class CommonParams {
   public String myState;
 }
 
-```
+</pre>
 
 <@next "Type conversions" "conversions"/>
 

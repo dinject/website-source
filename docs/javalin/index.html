@@ -56,7 +56,7 @@
 <p>
   For the controller below:
 </p>
-```java
+<pre content="java">
 @Controller
 @Path("/customers")
 class CustomerController {
@@ -78,7 +78,7 @@ class CustomerController {
     ...
   }
 }
-```
+</pre>
 <p>
   The <code>javalin-generator</code> generates the code below.
 </p>
@@ -93,7 +93,7 @@ class CustomerController {
 
 </ul>
 
-```java
+<pre content="java">
 @Generated("io.dinject.javalin.generator")
 @Singleton                                                       // (A)
 public class CustomerController$route implements WebRoutes {     // (B)
@@ -124,7 +124,7 @@ public class CustomerController$route implements WebRoutes {     // (B)
 
 }
 
-```
+</pre>
 <p>
   As the generated bean is a <code>@Singleton</code> DInject puts it into
   the DI context. All these generated beans implement <code>WebRoutes</code>
@@ -135,7 +135,7 @@ public class CustomerController$route implements WebRoutes {     // (B)
   When can register all the <code>WebRoutes</code> with Javalin.
 </p>
 
-```java
+<pre content="java">
   public static void main(String[] args) {
 
     Javalin app = Javalin.create().disableStartupBanner();
@@ -151,7 +151,7 @@ public class CustomerController$route implements WebRoutes {     // (B)
     // start Javalin
     app.start(8080);
   }
-```
+</pre>
 
 <h3>Dependency injection</h3>
 <p>

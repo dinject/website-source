@@ -27,7 +27,7 @@
   Add <em>dinject</em> as a compile dependency and <em>dinject-generator</em> as an annotation processor.
 </p>
 
-```groovy
+<pre content="groovy">
 dependencies {
   ...
   compile('io.dinject:dinject:1.14')
@@ -35,7 +35,7 @@ dependencies {
   annotationProcessor('io.dinject:dinject-generator:1.14')
   ...
 }
-```
+</pre>
 
 <h3>Kotlin KAPT</h3>
 <p>
@@ -45,13 +45,13 @@ dependencies {
   For use with Kotlin we register <em>dinject-generator</em> as a <code>kapt</code> processor
   to the Kotlin compiler rather than <em>annotationProcessor</em>.
 </p>
-```groovy
+<pre content="groovy">
 dependencies {
     ...
     kapt('io.dinject:dinject-generator:1.14')
     ...
 }
-```
+</pre>
 
 <h3 id="idea">IntelliJ IDEA with Gradle</h3>
 <p>

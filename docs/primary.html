@@ -1,0 +1,65 @@
+<html>
+<head>
+  <title>@Primary | DInject dependency injection</title>
+  <meta name="layout" content="_layout/docs.html"/>
+  <template id="menuNav"><#include "/_layout/_docs_nav_index.ftl"></template>
+  <meta name="bread1" content="Primary" href="/docs/primary"/>
+  <#assign primary="active">
+</head>
+<body>
+
+
+<h2 id="usage">Usage</h2>
+<p>
+  <code>@Primary</code> and <code>@Secondary</code> are used when there are
+  multiple candidates to inject. They provide a "priority" to determine which dependency to
+  inject and use when injecting a single implementation and multiple candidates are available
+  to inject.
+</p>
+<p>
+  This is functionally the same as Spring DI's <code>@Primary</code> and <code>@Secondary</code>.
+</p>
+<p>
+  We typically use <em>@Primary</em> and <em>@Secondary</em> when we are
+  building multi-module applications. We have multiple modules (jars) that provide implementations.
+  We use <em>@Secondary</em> to indicate a "default" or "fallback" implementation to use
+  and we use <em>@Primary</em> to indicate the best implementation to use when it is available.
+  DInject DI will then wire depending on which modules (jars) are included in the classpath.
+</p>
+
+<h2 id="jsr-extension">JSR 330, Spring DI and CDI</h2>
+<p>
+  There is nothing equivalent in JSR 330 for the @Primary and @Secondary annotations which are
+  functionally the same as Spring DI's annotations of the same name - DInject has followed
+  the approach of Spring DI. CDI is different and instead has <em>@Priority</em>, <em>@Default</em>
+  and <em>@Alternative</em> annotations to achieve similar goals.
+</p>
+
+<h2 id="primary">@Primary</h2>
+<p>
+  A bean with <code>@Primary</code> is deemed to be highest priority and will be injected and used
+  when it is available.
+</p>
+<p>
+  There should only ever be <b>one</b> bean implementation marked as <em>@Primary</em> for
+  a given dependency.
+</p>
+<p>
+  This is functionally the same as Spring DI's <em>@Primary</em>.
+</p>
+
+<h2 id="secondary">@Secondary</h2>
+<p>
+  A bean with <code>@Secondary</code> is deemed to be lowest priority and will only be injected
+  if there are no other candidates to inject. We use <code>@Secondary</code> to indicate a
+  "default" or "fallback" implementation that will be superseded by any other available implementation.
+</p>
+<p>
+  This is functionally the same as Spring DI's <em>@Secondary</em>.
+</p>
+
+
+<@next "Test doubles" "test-doubles"/>
+
+</body>
+</html>

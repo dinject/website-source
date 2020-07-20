@@ -25,7 +25,7 @@
 </p>
 
 <h2 id="constructor">Constructor injection</h2>
-```java
+<pre content="java">
 @Singleton
 public class CoffeeMaker {
 
@@ -39,7 +39,7 @@ public class CoffeeMaker {
     this.grinder = grinder;
   }
   ...
-```
+</pre>
 <p>
   The above CoffeeMaker is using constructor injection. Both a Pump and Ginder will be injected into the
   constructor when the DI creates (or "wires") the CoffeeMaker.
@@ -54,7 +54,7 @@ public class CoffeeMaker {
   With Kotlin we frequently will not specify <em>@Inject</em> with only one constructor.
   The CoffeeMaker constructor injection then looks like:
 </p>
-```kotlin
+<pre content="kotlin">
 @Singleton
 class CoffeeMaker(private val pump: Pump , private val grinder: Grinder)  {
 
@@ -62,12 +62,10 @@ class CoffeeMaker(private val pump: Pump , private val grinder: Grinder)  {
     ...
   }
 }
-
-```
-
+</pre>
 
 <h2 id="field">Field injection</h2>
-```java
+<pre content="java">
 @Singleton
 public class CoffeeMaker {
 
@@ -77,7 +75,7 @@ public class CoffeeMaker {
   @Inject
   Grinder grinder;
   ...
-```
+</pre>
 <p>
   With field injection the <code>@Inject</code> is placed on the field and the field must not be <code>private</code>
   and it must not be <code>final</code>.
@@ -87,7 +85,7 @@ public class CoffeeMaker {
 <p>
   For Kotlin we can consider using <em>lateinit</em> on the property.
 </p>
-```kotlin
+<pre content="kotlin">
 @Singleton
 class Grinder {
 
@@ -98,8 +96,7 @@ class Grinder {
     ...
   }
 }
-```
-
+</pre>
 
 <h2 id="mixed">Mixed constructor and field injection</h2>
 <p>
@@ -107,7 +104,7 @@ class Grinder {
   and the Pump is injected by field injection.
 </p>
 
-```java
+<pre content="java">
 @Singleton
 public class CoffeeMaker {
 
@@ -119,22 +116,23 @@ public class CoffeeMaker {
   public CoffeeMaker(Grinder grinder) {
     this.grinder = grinder;
   }
-```
+</pre>
 
 <h2 id="optional">Optional</h2>
 <p>
-  We can use <code>java.util.Optional</T></code> to inject dependencies that might not exist (might not be provided).
+  We can use <code>java.util.Optional&lt;T&gt;</code> to inject optional dependencies.
+  These are dependencies that might not be provided / might not have an available implementation.
 </p>
-```java
+<pre content="java">
 @Singleton
 class Pump {
 
   private final Heater heater;
 
-  private final Optional<Widget> widget;
+  private final Optional<|Widget> widget;
 
   @Inject
-  Pump(Heater heater, Optional<Widget> widget) {
+  Pump(Heater heater, Optional<|Widget> widget) {
     this.heater = heater;
     this.widget = widget;
   }
@@ -146,35 +144,38 @@ class Pump {
     ...
   }
 }
-```
+</pre>
+<h5>Spring DI Note</h5>
+<p>
+  Spring users will be familiar with the use of <code>@Autowired(required=false)</code>
+  for wiring optional dependencies. With DInject we instead use <code>Optional</code>
+  to inject optional dependencies.
+</p>
 
 <h2 id="list">List</h2>
 <p>
-  We can inject a <code>java.util.List</T></code> of beans that implement an interface.
+  We can inject a <code>java.util.List&lt;T&gt;</code> of beans that implement an interface.
 </p>
-```java
+<pre content="java">
 @Singleton
 public class CombinedBars {
 
-  private final List<Bar> bars;
+  private final List<|Bar> bars;
 
   @Inject
-  public CombinedBars(List<Bar> bars) {
+  public CombinedBars(List<|Bar> bars) {
     this.bars = bars;
   }
-```
+</pre>
 
 <h2 id="provider">Provider</h2>
 <p>
-  A Singleton bean can implement <code>javax.inject.Provider</code> to create a bean to be used in injection.
+  A Singleton bean can implement <code>javax.inject.Provider&lt;T&gt;</code> to create a bean to
+  be used in injection.
 </p>
-<p>
-  This is more limited than using <code>@Factory</code> and <code>@Bean</code>. The expectation is that
-  people would generally use Factory and Bean instead of implementing the Provider interface.
-</p>
-```java
+<pre content="java">
 @Singleton
-public class FooProvider implements Provider<Foo> {
+public class FooProvider implements Provider<|Foo> {
 
   private final Bazz bazz;
 
@@ -188,8 +189,17 @@ public class FooProvider implements Provider<Foo> {
     return new BasicFoo(bazz);
   }
 }
-
-```
+</pre>
+<p>
+  Note that the alternative to using the <code>javax.inject.Provider&lt;T&gt;</code> interface is
+  to instead use <code><a href="/docs/factory">@Factory</a></code> and <code><a href="/docs/factory">@Bean</a></code>
+  as it is more flexible and convenient than the the provider interface.
+</p>
+<h5>Spring DI Note</h5>
+<p>
+  The JSR 330 <code>javax.inject.Provider&lt;T&gt;</code> interface is functionally the same
+  as Spring DI <code>FactoryBean&lt;T&gt;</code>.
+</p>
 
 <@next "Lifecycle" "lifecycle"/>
 

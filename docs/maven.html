@@ -16,21 +16,20 @@
 <p>
   Add <em>dinject</em> as a dependency.
 </p>
-
-```xml
+<pre content="xml">
 <dependency>
   <groupId>io.dinject</groupId>
   <artifactId>dinject</artifactId>
   <version>1.14</version>
 </dependency>
-```
+</pre>
 
 <h3>Java APT - dinject-generator</h3>
 <p>
   Add <em>dinject-generator</em> as a dependency with <em>provided scope</em>.
 </p>
 
-```xml
+<pre content="xml">
 <!-- Annotation processor -->
 <dependency>
   <groupId>io.dinject</groupId>
@@ -38,7 +37,7 @@
   <version>1.14</version>
   <scope>provided</scope>
 </dependency>
-```
+</pre>
 
 <h3>Kotlin KAPT - dinject-generator</h3>
 <p>
@@ -54,7 +53,7 @@
   maven tiles for <em>compile</em> and <em>dinject-generator</em>
   in <em>build / plugins</em> like:
 </p>
-```xml
+<pre content="xml">
 <build>
   <plugins>
 
@@ -83,7 +82,7 @@
 
   </plugins>
 </build>
-```
+</pre>
 <p>
   The above includes the <em>dinject-generator</em> annotation processor only. For use with <code>Javalin</code>
   we instead include the <code>io.dinject.kapt:javalin:1.12</code> tile.

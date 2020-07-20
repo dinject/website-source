@@ -21,9 +21,9 @@
   By default a module name is derived from the top most package. It is advisable to explicitly
   name modules that have common functionality that we want to depend on.
 </p>
-```java
+<pre content="java">
 @ContextModule(name = "feature-toggle")
-```
+</pre>
 <p>
   We use the <code>@ContextModule</code> annotation to give a module an explicit name.
 </p>
@@ -33,9 +33,9 @@
   Modules that depend on functionality / beans from other modules specify in <code>dependsOn</code>
   the modules that should provide beans they want to inject.
 </p>
-```java
+<pre content="java">
 @ContextModule(name = "job-system", dependsOn = {"feature-toggle"})
-```
+</pre>
 <p>
   With the above example the "job-system" module expects bean(s) from the "feature-toggle" module to be
   available for injecting into it's bean graph.

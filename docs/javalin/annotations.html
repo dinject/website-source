@@ -13,7 +13,7 @@
   or <code>@Patch</code>. Methods with these annotations will be mapped to web routes.
 </p>
 
-```java
+<pre content="java">
 
 @Get(":id")
 void getFoo(long id) {
@@ -24,7 +24,7 @@ void getFoo(long id) {
 void save(HelloDto dto) {
   ...
 }
-```
+</pre>
 
 <h2>Path parameters</h2>
 <p>
@@ -34,12 +34,12 @@ void save(HelloDto dto) {
 <p>
   The path parameter names need to be matched by method parameter names on the controller. For example:
 </p>
-```java
+<pre content="java">
 @Get(":id/:date/:sort")
 public List<|Bazz> findBazz(long id, LocalDate date, String sort) { // id, date, sort ... match
  ...
 }
-```
+</pre>
 <p>
   The design choice is that this convention means that we don't need a <code>@PathParam</code> annotation.
   When using JAX-RS <em>@PathParam</em> the annotation value almost always matched the method parameter and
@@ -67,12 +67,12 @@ public List<|Bazz> findBazz(long id, LocalDate date, String sort) { // id, date,
   or if the query parameter used snake case or similar that doesn't match the method parameter name.
   For example:
 </em>
-```java
+<pre content="java">
 @Get(":id/:date")
 public List<|Cat> findCats(long id, LocalDate date, @QueryParam(name="order-by", defaultValue="age") String orderBy) {
   ...
 }
-```
+</pre>
 
 
 <h2>Body @Post/@Patch</h2>
@@ -91,7 +91,7 @@ public List<|Cat> findCats(long id, LocalDate date, @QueryParam(name="order-by",
   combining the paths from both <em>@Path</em> and <em>@Get</em>.
 </p>
 
-```java
+<pre content="java">
 @Path("/mypath")
 class BarController {
 
@@ -100,7 +100,7 @@ class BarController {
     ...
   }
 }
-```
+</pre>
 
 
 <@next "Type conversions" "conversions"/>

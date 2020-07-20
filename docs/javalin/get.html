@@ -12,7 +12,7 @@
   Annotate methods with <code>@Get</code> for HTTP GET web routes.
 </p>
 
-```java
+<pre content="java">
 @Controller
 @Path("/customers")
 class CustomerController {
@@ -33,7 +33,7 @@ class CustomerController {
   }
 
 }
-```
+</pre>
 
 <h2>Path parameters</h2>
 <p>
@@ -43,14 +43,14 @@ class CustomerController {
 <p>
   The path parameter names need to be matched by method parameter names on the controller. For example:
 </p>
-```java
+<pre content="java">
 @Get("/:id/:startDate/:sort")
 List<|Bazz> findBazz(long id, LocalDate startDate, String sort) {
 
   // id, startDate, sort ... match
   ...
 }
-```
+</pre>
 <p>
   The design choice is that this convention means that we don't need a <code>@PathParam</code> annotation.
   When using JAX-RS <em>@PathParam</em> the annotation value almost always matched the method parameter and
@@ -63,7 +63,7 @@ List<|Bazz> findBazz(long id, LocalDate startDate, String sort) {
 <p>
   The JAX-RS equivalent to the above would be:
 </p>
-```java
+<pre content="java">
 
 // JAX-RS
 
@@ -75,7 +75,7 @@ List<|Bazz> findBazz(@PathParam("id") long id, @PathParam("startDate") LocalDate
   // making the code hard to read
 
 }
-```
+</pre>
 
 <h2>Query parameters</h2>
 <p>
@@ -84,12 +84,12 @@ List<|Bazz> findBazz(@PathParam("id") long id, @PathParam("startDate") LocalDate
 <p>
   In the following example <code>orderBy</code> is not a path parameter and defaults to being a <code>@QueryParam</code>
 </p>
-```java
+<pre content="java">
 @Get("/:id/:date")
 public List<|Cat> findCats(long id, LocalDate date, String orderBy) {
   ...
 }
-```
+</pre>
 <p>
   We use <code>@QueryParam</code> when we want to be explicit or when a query parameter uses snake case
   or similar that isn't a valid Java/Kotlin identifier.
@@ -99,12 +99,12 @@ public List<|Cat> findCats(long id, LocalDate date, String orderBy) {
   In the following example we explicitly use <em>@QueryParam("order-by")</em> because of snake case parameter
   <code>"order-by"</code> is not a valid Java/Kotlin identifier.
 </p>
-```java
+<pre content="java">
 @Get("/:id/:date")
 public List<|Cat> findCats(long id, LocalDate date, @QueryParam("order-by") String orderBy) {
   ...
 }
-```
+</pre>
 
 
 <@next "Post" "post"/>

@@ -27,13 +27,13 @@
   (swagger) to be generated into <em>src/main/resources/public</em>.
 </p>
 
-```groovy
+<pre content="groovy">
 plugins {
   ...
   id('io.dinject.openapi') version('1.2')
 }
 
-```
+</pre>
 
 <h3>Dependencies</h3>
 <p>
@@ -41,7 +41,7 @@ plugins {
   Add <em>dinject-generator</em> and <em>javalin-generator</em> as annotation processors.
 </p>
 
-```groovy
+<pre content="groovy">
 dependencies {
   ...
   compile('io.dinject:dinject:1.14')
@@ -51,7 +51,7 @@ dependencies {
   annotationProcessor('io.dinject:javalin-generator:1.14')
   ...
 }
-```
+</pre>
 
 
 
@@ -62,25 +62,26 @@ dependencies {
 <p>
   For use with Kotlin we change the <em>annotationProcessor</em> to be <code>kapt</code> for the Kotlin compiler.
 </p>
-```groovy
+<pre content="groovy">
+
 dependencies {
   ...
   kapt('io.dinject:dinject-generator:1.14')
   kapt('io.dinject:javalin-generator:1.14')
   ...
 }
-```
+</pre>
 
 <h3>OpenAPI Plugin configuration</h3>
 <p>
   We can change the location of the generated openapi file by adding an <code>openapi</code> configuration
   section in build.gradle.
 </p>
-```groovy
+<pre content="groovy">
 openapi {
   destination = 'other/my-api.json'
 }
-```
+</pre>
 
 <h3 id="idea">IntelliJ IDEA with Gradle</h3>
 <p>

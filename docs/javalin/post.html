@@ -19,23 +19,23 @@
 <p>
   In the example below customer is populated via body content expected to be JSON (<code>ctx.bodyAsClass(</code>).
 </p>
-```java
+<pre content="java">
 @Post
 void save(Customer customer) {
   ...
 }
-```
+</pre>
 <p>
   The generated code for the above is:
 </p>
-```java
+<pre content="java">
 ApiBuilder.post("/customers", ctx -> {
   ctx.status(201);
   Customer customer = ctx.bodyAsClass(Customer.class);
   controller.save(customer);
 });
 
-```
+</pre>
 
 <h3 id="simple">@Form (Simple form)</h3>
 <p>
@@ -44,23 +44,24 @@ ApiBuilder.post("/customers", ctx -> {
 <p>
   In the following example name, email and url all default to be form parameters.
 </p>
-```java
+<pre content="java">
   @Form @Post("register")
   void register(String name, String email, String url) {
     ...
   }
-```
+</pre>
+
 <h3 id="formparam">@FormParam</h3>
 <p>
   For the example above we could alternatively use <code>@FormParam</code> on each of the form parameters
   rather than <code>@Form</code>. We then get:
 </p>
-```java
+<pre content="java">
 @Post("register")
 void register(@FormParam String name, @FormParam String email, @FormParam String url) {
   ...
 }
-```
+</pre>
 <p>
   The expectation is that we most often would use <code>@Form</code> because it reduces
   "annotation noise" and that we will very rarely use <code>@FormParam</code>. Potentially
@@ -71,7 +72,7 @@ void register(@FormParam String name, @FormParam String email, @FormParam String
 <p>
   The generated code for both cases above is the same:
 </p>
-```java
+<pre content="java">
 ApiBuilder.post("/customers/register", ctx -> {
   ctx.status(201);
   String name = ctx.formParam("name");
@@ -80,7 +81,7 @@ ApiBuilder.post("/customers/register", ctx -> {
   controller.register(name, email, url);
 });
 
-```
+</pre>
 
 
 <h3 id="formbeans">@Form with "Form Beans" (Large forms)</h3>
@@ -95,7 +96,7 @@ ApiBuilder.post("/customers/register", ctx -> {
   Using a form bean can make the code nicer (method signature) and gives us a nicer option to
   use validation annotations on the "form bean" properties.
 </p>
-```java
+<pre content="java">
 public class MyForm {
 
   @Size(min=2, max=100)
@@ -103,16 +104,16 @@ public class MyForm {
   public String email;
   public String url;
 }
-```
-```java
+</pre>
+<pre content="java">
 @Form @Post("register")
 void register(MyForm myForm) {
   ...
 }
 
-```
+</pre>
 The generated code for the above is.
-```java
+<pre content="java">
 ApiBuilder.post("/contacts/register", ctx -> {
   ctx.status(201);
   MyForm myForm =  new MyForm();
@@ -122,7 +123,7 @@ ApiBuilder.post("/contacts/register", ctx -> {
 
   controller.register(myForm);
 });
-```
+</pre>
 <p>
   "Form beans" are nice with forms with lots of properties because they declutter our code
   and the generated code takes care of putting the values into our bean properties so that
@@ -138,7 +139,7 @@ ApiBuilder.post("/contacts/register", ctx -> {
 <p>
   Kotlin data classes are a natural fit for form beans.
 </p>
-```kotlin
+<pre content="kotlin">
 data class SaveForm(var id: Long, var name: String, var someDate: LocalDate?)
 
 
@@ -148,11 +149,11 @@ fun saveIt(form: SaveForm) {
   ...
 }
 
-```
+</pre>
 <p>
   The generated code for the above controller method is:
 </p>
-```java
+<pre content="java">
 ApiBuilder.post("/", ctx -> {
   ctx.status(201);
   SaveForm form =  new SaveForm(
@@ -163,8 +164,7 @@ ApiBuilder.post("/", ctx -> {
 
   controller.saveIt(form);
 });
-
-```
+</pre>
 
 <p>
   If the form bean has Kotlin non-nullable types (id and name above) then the
@@ -183,7 +183,7 @@ ApiBuilder.post("/", ctx -> {
   The properties on a "form bean" default to being form parameters. We put <em>@QueryParam</em>,
   <em>@Header</em> or <em>@Cookie</em> on properties that are instead query params, headers or cookies.
 </p>
-```java
+<pre content="java">
 public class MyForm {
 
   @Size(min=2, max=100)
@@ -201,11 +201,11 @@ public class MyForm {
   public String myState;
 }
 
-```
+</pre>
 <p>
   The generated code populates <em></em> from query params, headers and cookies. The generated code is:
 </p>
-```java
+<pre content="java">
 ApiBuilder.post("/contacts/register", ctx -> {
   ctx.status(201);
   MyForm myForm =  new MyForm();
@@ -218,7 +218,7 @@ ApiBuilder.post("/contacts/register", ctx -> {
 
   controller.register(myForm);
 });
-```
+</pre>
 
 <@next "Put" "put"/>
 

@@ -20,13 +20,13 @@
   Add a dependency on <em>controller-validator-hibernate</em>. This will transitively
   bring in a dependency on <em>hibernate-validator</em>.
 </p>
-```xml
+<pre content="xml">
 <dependency>
   <groupId>io.dinject</groupId>
   <artifactId>controller-validator-hibernate</artifactId>
   <version>1.1</version>
 </dependency>
-```
+</pre>
 
 <h3>Add @Valid</h3>
 <p>
@@ -38,18 +38,18 @@
 <p>
   For the controller method below:
 </p>
-```java
+<pre content="java">
   @Post("saveform")
   @Form
   void saveForm(HelloForm helloForm) {
     ...
   }
-```
+</pre>
 <p>
   The generated code now includes a validation of the helloForm before it is
   passed to the controller method. The generated code is:
 </p>
-```java
+<pre content="java">
     ApiBuilder.post("/hello/saveform", ctx -> {
       ctx.status(201);
       HelloForm helloForm =  new HelloForm(
@@ -62,7 +62,7 @@
       validator.validate(helloForm);       // validation added here !!
       controller.saveForm(helloForm);
     });
-```
+</pre>
 
 <h3>ValidationException handler</h3>
 <p>
@@ -74,7 +74,7 @@
   <em>exception.getErrors()</em> in the handler below is returning a <code>Map&lt;String, Object&gt;</code>
 </p>
 
-```java
+<pre content="java">
     app.exception(ValidationException.class, (exception, ctx) -> {
 
       Map<|String,Object> map = new LinkedHashMap<>();
@@ -84,7 +84,7 @@
       ctx.status(exception.getStatus());
     });
 
-```
+</pre>
 
 <@next "JAX-RS Comparison" "jaxrs"/>
 

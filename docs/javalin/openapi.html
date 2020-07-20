@@ -5,7 +5,6 @@
   <meta name="bread2" content="OpenAPI" href="/docs/javalin/openapi"/>
 <#assign openapi="active">
 </head>
-<body>
 
 <h2 id="openapi">OpenAPI</h2>
 <p>
@@ -54,13 +53,13 @@
 <p>
   Example <a href="https://github.com/dinject/examples/blob/master/javalin-maven-java-basic/src/main/java/org/example/myapp/Main.java#L18">@OpenAPIDefinition</a>
 </p>
-```java
+<pre content="java">
 @OpenAPIDefinition(
   info = @Info(
     title = "Example service",
     description = "Example Javalin controllers with Java and Maven"))
 
-```
+</pre>
 <h4>@Hidden</h4>
 <p>
   Put <code>@Hidden</code> on controller methods that we want to exclude
@@ -75,21 +74,21 @@
 <p>
   To add the plugin:
 </p>
-```groovy
+<pre content="groovy">
 plugins {
   ...
   id('io.dinject.openapi') version('1.2')
 }
-```
+</pre>
 <p>
   To configure the openapi.json file to go to another location add a
   <em>openapi</em> configuration section in build.gradle like:
 </p>
-```groovy
+<pre content="groovy">
 openapi {
   destination = 'other/my-api.json'
 }
-```
+</pre>
 
 
 <h3>Maven plugin</h3>
@@ -100,7 +99,7 @@ openapi {
 <p>
   To add the plugin into <em>build / plugins</em> section:
 </p>
-```xml
+<pre content="xml">
   <plugin>
     <groupId>io.dinject</groupId>
     <artifactId>openapi-maven-plugin</artifactId>
@@ -116,12 +115,12 @@ openapi {
     </executions>
   </plugin>
 
-```
+</pre>
 <p>
   To configure the openapi.json file to go to another location add a
   <em>configuration section</em> element like:
 </p>
-```xml
+<pre content="xml">
   <plugin>
     <groupId>io.dinject</groupId>
     <artifactId>openapi-maven-plugin</artifactId>
@@ -139,19 +138,19 @@ openapi {
       </execution>
     </executions>
   </plugin>
-```
+</pre>
 
 <h3>Serving openapi.json</h3>
 <p>
   When the openapi.json file is in src/main/resources/public it can be served by
   using <code>addStaticFiles</code> on the JavalinConfig like:
 </p>
-```java
+<pre content="java">
 Javalin app = Javalin.create(config -> {
   ...
   config.addStaticFiles("public", Location.CLASSPATH);
 });
-```
+</pre>
 
 <@next "Bean validation" "beanvalidation"/>
 

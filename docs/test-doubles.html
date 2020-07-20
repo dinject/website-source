@@ -25,7 +25,7 @@
   We can use <code>withMock()</code> to have <a href="https://site.mockito.org/">Mockito mocks</a>
   injected in place of the normal behaviour.
 </p>
-```java
+<pre content="java">
 @Test
 public void myComponentTest() {
 
@@ -45,7 +45,7 @@ public void myComponentTest() {
     Grinder grinder = context.getBean(Grinder.class);
     verify(grinder).grindBeans();
 }
-```
+</pre>
 
 
 <h3 id="withSpy">BeanContext.withSpy()</h3>
@@ -56,7 +56,7 @@ public void myComponentTest() {
   We typically want to do this when we want the bean to have most or all of it's behaviour and
   only stub out some of it's behaviour and track it's interactions.
 </p>
-```java
+<pre content="java">
 @Test
 public void myComponentTest() {
 
@@ -80,13 +80,13 @@ public void myComponentTest() {
   }
 
 }
-```
+</pre>
 
 <h3 id="withBeans">BeanContext.withBeans()</h3>
 <p>
   We can use <code>withBeans()</code> to supply our own test doubles.
 </p>
-```java
+<pre content="java">
 @Test
 public void myComponentTest() {
 
@@ -107,7 +107,7 @@ public void myComponentTest() {
   }
 
 }
-```
+</pre>
 
 <@next "Modules" "modules"/>
 

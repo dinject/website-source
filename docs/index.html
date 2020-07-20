@@ -13,27 +13,124 @@
   developers.
 </p>
 <p>
-  It is fast and light by using source code generation (like Dagger). There is no use of reflection or classpath
-  scanning.
+  It uses source code generation (like Dagger). There is no use of reflection or classpath scanning.
 </p>
 <p>
   It is orientated to server-side use by providing similar functionality to Spring DI including Lifecycle support,
-  @Factory + @Bean and the ability to get beans from the context (which is what we need in order to use DI for
-  web route controllers for use with Javalin and other web libraries).
+  @Factory + @Bean, @Primary + @Secondary and the ability to get beans from the context.
 </p>
 
-<h2 id="aop">No AOP</h2>
+<h2 id="jsr-330">Based on JSR-330: Dependency Injection for Java</h2>
 <p>
-  Currently DInject does not include AOP. The expectation is that AOP functionality comes
-  with other libraries - for example Ebean ORM has <code>@Transactional</code> and Metrics
-  libraries have their own <code>@Timed</code>.
-</p>
-<p>
-  If we can stick to these additional libraries providing their own AOP/enhancement that has
-  the benefit that DInject has no requirement for creating <em>Dynamic Proxies</em> which
-  have relatively expensive startup cost.
+  DInject is based on <a href="http://javax-inject.github.io/javax-inject/api/index.html">JSR-330</a>
+  - <em>javax.inject</em> with some extensions similar to Spring DI.
 </p>
 
+<h2 id="extensions">Spring DI like Extensions to JSR-330</h2>
+<h4>@Factory + @Bean</h4>
+<p>
+  DInject has <a href="/docs/factory">@Factory + @Bean</a> which work the same as Spring DI's @Configuration
+  + @Bean. This provides a more convenient alternative to the JSR-330 <em>javax.inject.Provider&lt;T&gt;</em>
+  interface.
+</p>
+<h4>@Primary @Secondary</h4>
+<p>
+  DInject has <a href="/docs/primary">@Primary @Secondary</a> annotations which work the same as Spring DI's
+  @Primary @Secondary annotations. These provide injection precedence in the case of injecting an implementation
+  when multiple injection candidates are available.
+</p>
+
+
+<h2 id="spring">Spring DI translation</h2>
+
+<table class="table">
+  <tr>
+    <th width="45%">Spring</th>
+    <th width="45%">DInject</th>
+    <th width="10%">JSR-330</th>
+  </tr>
+  <tr>
+    <td>@Component, @Service, @Controller, @Repository</td>
+    <td><a href="/docs/injection#singleton">@javax.inject.Singleton</a></td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>FactoryBean&lt;T&gt;</td>
+    <td><a href="/docs/injection#provider">javax.inject.Provider&lt;T&gt;</a></td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>@Inject, @Autowired</td>
+    <td><a href="/docs/injection#inject">@javax.inject.Inject</a></td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>@Autowired(required=false)</td>
+    <td><a href="/docs/injection#optional">@javax.inject.Inject Optional&lt;T&gt;</a></td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>@PostConstruct</td>
+    <td><a href="/docs/lifecycle#postConstruct">@javax.inject.PostConstruct</a></td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>@PreDestroy</td>
+    <td><a href="/docs/lifecycle#preDestroy">@javax.inject.PreDestroy</a></td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td colspan="3" align="center" style="padding-top:2em;"><i>Non standard extensions to JSR-330</i></td>
+  </tr>
+  <tr>
+    <td>@Configuration @Bean</td>
+    <td><a href="/docs/factory">@Factory @Bean</a></td>
+    <td><b>No</b></td>
+  </tr>
+  <tr>
+    <td>@Primary</td>
+    <td><a href="/docs/primary">@Primary</a></td>
+    <td><b>No</b></td>
+  </tr>
+  <tr>
+    <td>@Secondary</td>
+    <td><a href="/docs/primary#secondary">@Secondary</a></td>
+    <td><b>No</b></td>
+  </tr>
+</table>
+
+<h2 id="aop">AOP</h2>
+<p>
+  Using libraries that provide their own AOP/enhancement makes DInject simpler and lighter.
+</p>
+<p>
+  Currently DInject does not include AOP and the expectation is that AOP functionality comes
+  with other libraries. For example Ebean ORM has
+  <code><a href="https://ebean.io/docs/transactions/">@Transactional</a></code> and Metrics
+  libraries have their own <code><a href="https://avaje.io/metrics/">@Timed</a></code>.
+</p>
+<p>
+  The following are library recommendations for @Transactional, @Config and @Timed.
+</p>
+
+<table class="table">
+  <tr>
+    <th width="50%">Spring</th>
+    <th width="50%">Recommendation</th>
+  </tr>
+  <tr>
+    <td>@Transactional</td>
+    <td><a href="https://ebean.io/docs/transactions/">Ebean @Transactional</a></td>
+  </tr>
+  <tr>
+    <td>@Config</td>
+    <td><a href="https://avaje.io/config/">Avaje Config</a></td>
+  </tr>
+  <tr>
+    <td>@Timed</td>
+    <td><a href="https://avaje.io/metrics/">Avaje Metrics</a></td>
+  </tr>
+</table>
 
 <@next "Maven" "maven"/>
 

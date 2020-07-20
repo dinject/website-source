@@ -5,7 +5,7 @@
   <meta name="bread2" content="Type conversions" href="/docs/javalin/conversions"/>
 <#assign conversions="active">
 </head>
-<body>
+<p>
 
 
 <h2 id="conversions">Type conversions</h2>
@@ -20,15 +20,16 @@
   In the following example there is a type conversion for <em>startDate</em> and <em>active</em>.
 </p>
 
-```java
+<pre content="java">
 @Get("/:id/:name")
 HelloDto hello(int id, String name, LocalDate startDate, Boolean active) {
   ...
 }
-
-```
+</pre>
+<p>
 The generated code includes the type conversion with <code>toLocalDate()</code> and <code>toBoolean()</code>.
-```java
+</p>
+<pre content="java">
 ApiBuilder.get("/hello/:id/:name", ctx -> {
   ctx.status(200);
   int id = asInt(ctx.pathParam("id"));
@@ -37,7 +38,7 @@ ApiBuilder.get("/hello/:id/:name", ctx -> {
   Boolean active = toBoolean(ctx.queryParam("active"));
   ctx.json(controller.hello(id, name, startDate, active));
 });
-```
+</pre>
 
 
 <h3>Exception handlers</h3>
@@ -57,7 +58,7 @@ ApiBuilder.get("/hello/:id/:name", ctx -> {
   We should register exception handlers for these 2 exceptions like the handlers below:
 </p>
 
-```java
+<pre content="java">
     app.exception(InvalidPathArgumentException.class, (exception, ctx) -> {
 
       Map<|String, String> map = new LinkedHashMap<>();
@@ -77,8 +78,7 @@ ApiBuilder.get("/hello/:id/:name", ctx -> {
     });
 
 
-
-```
+</pre>
 
 <@next "Javalin Context" "context"/>
 

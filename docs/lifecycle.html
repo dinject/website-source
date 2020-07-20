@@ -16,7 +16,7 @@
 <p>
   Typically we open a resource like network connections to a remote resource (cache, queue, database etc).
 </p>
-```java
+<pre content="java">
 @Singleton
 public class CoffeeMaker {
 
@@ -28,16 +28,16 @@ public class CoffeeMaker {
     ...
   }
   ...
-```
+</pre>
 
-<h2>@PreDestory</h2>
+<h2>@PreDestroy</h2>
 <p>
-  Put <code>@PreDestory</code> on a method that we want to run on shutdown.
+  Put <code>@PreDestroy</code> on a method that we want to run on shutdown.
 </p>
 <p>
   Typically we want this method to close resources.
 </p>
-```java
+<pre content="java">
 @Singleton
 public class CoffeeMaker {
 
@@ -49,7 +49,15 @@ public class CoffeeMaker {
     ...
   }
   ...
-```
+</pre>
+
+<h2>@Bean(initMethod = "init")</h2>
+<p>
+  For beans
+</p>
+
+<h2>@Bean(destroyMethod = "close")</h2>
+
 <@next "Factory" "factory"/>
 
 </body>
