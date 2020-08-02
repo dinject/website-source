@@ -3,10 +3,20 @@
   <title>@Primary | DInject dependency injection</title>
   <meta name="layout" content="_layout/docs.html"/>
   <template id="menuNav"><#include "/_layout/_docs_nav_index.ftl"></template>
-  <meta name="bread1" content="Primary" href="/docs/primary"/>
+  <meta name="bread1" content="@Primary" href="/docs/primary"/>
   <#assign primary="active">
 </head>
 <body>
+<h2 id="spring">Spring DI</h2>
+<p>
+  <em>@Primary</em> <em>@Secondary</em> are equivalent to Spring DI <em>@Primary</em> <em>@Secondary</em>
+  and Micronaut <em>@Primary</em> <em>@Secondary</em>.
+</p>
+<p>
+  Note that JSR 330 does not have any equivalent functionality. CDI has a different approach
+  and instead has <em>@Priority</em>, <em>@Default</em> and <em>@Alternative</em> annotations
+  to achieve similar goals.
+</p>
 
 <h2 id="usage">Usage</h2>
 <p>
@@ -23,17 +33,6 @@
   DInject DI will then wire depending on which modules (jars) are included in the classpath.
 </p>
 
-<h2 id="spring">Spring DI</h2>
-<p>
-  Spring DI provides <code>@Primary</code> and <code>@Secondary</code> annotations and
-  DInject has followed the Spring approach with the same functionally (as has Micronaut DI).
-</p>
-<p>
-  Note that JSR 330 does not have any equivalent functionality. CDI has a different approach
-  and instead has <em>@Priority</em>, <em>@Default</em> and <em>@Alternative</em> annotations
-  to achieve similar goals.
-</p>
-
 <h2 id="primary">@Primary</h2>
 <p>
   A bean with <code>@Primary</code> is deemed to be highest priority and will be injected and used
@@ -44,7 +43,7 @@
   a given dependency.
 </p>
 <p>
-  This is functionally the same as Spring DI's <em>@Primary</em>.
+  This is functionally the same as Spring and Micronaut <em>@Primary</em>.
 </p>
 
 <h2 id="secondary">@Secondary</h2>
@@ -54,7 +53,7 @@
   "default" or "fallback" implementation that will be superseded by any other available implementation.
 </p>
 <p>
-  This is functionally the same as Spring DI's <em>@Secondary</em>.
+  This is functionally the same as Spring and Micronaut <em>@Secondary</em>.
 </p>
 
 <@next "Test doubles" "test-doubles"/>

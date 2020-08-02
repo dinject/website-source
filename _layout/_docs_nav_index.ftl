@@ -28,6 +28,7 @@
 </@smallnav>
 <@smallnav activeCheck="${factory!''}" url="/docs/factory" title="@Factory">
   <ul>
+    <li><a href="#spring">Spring DI</a></li>
     <li><a href="#factory">@Factory</a></li>
     <li><a href="#bean">@Bean</a></li>
     <li><a href="#initMethod">initMethod</a></li>
@@ -37,8 +38,8 @@
 </@smallnav>
 <@smallnav activeCheck="${primary!''}" url="/docs/primary" title="@Primary">
   <ul>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#spring">Spring DI</a></li>
+    <li><a href="#usage">Usage</a></li>
     <li><a href="#primary">@Primary</a></li>
     <li><a href="#secondary">@Secondary</a></li>
   </ul>
