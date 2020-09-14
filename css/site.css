@@ -679,3 +679,10 @@ a.bright-link {
 .sticky + #main {
   padding-top: 50px;
 }
+
+.redirect {
+  background: #1e0010;
+  color: #5cb85c;
+  padding: 1rem;
+  font-size: 1.4rem;
+}
